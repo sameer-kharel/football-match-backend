@@ -1,6 +1,7 @@
 import type { CompetitionConfig } from '../../config/competitions.js';
 import { competitionById } from '../../config/competitions.js';
 import { groupLabel, isKnockoutStage, seasonLabel, stageLabel } from '../../domain/stages.js';
+import { zoneFor } from '../../domain/standings.js';
 import type {
   FormResult,
   HeadToHead,
@@ -19,7 +20,6 @@ import type {
   StandingGroup,
   Standings,
   TeamRef,
-  ZoneRule,
 } from '../../domain/types.js';
 import type { TeamBase } from '../types.js';
 import type {
@@ -345,10 +345,6 @@ export function parseForm(form: string | null | undefined): FormResult[] {
     .replace(/,/g, '')
     .split('')
     .filter((c): c is FormResult => c === 'W' || c === 'D' || c === 'L');
-}
-
-export function zoneFor(position: number, zones: readonly ZoneRule[]) {
-  return zones.find((z) => position >= z.from && position <= z.to)?.zone ?? null;
 }
 
 export function normalizeStandings(raw: FdStandingsResponse, comp: CompetitionConfig): Standings {

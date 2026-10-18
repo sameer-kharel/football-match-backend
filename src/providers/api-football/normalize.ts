@@ -18,7 +18,8 @@ import type {
   TeamRef,
   ZoneId,
 } from '../../domain/types.js';
-import { sortEvents, zoneFor } from '../football-data/normalize.js';
+import { zoneFor } from '../../domain/standings.js';
+import { sortEvents } from '../football-data/normalize.js';
 import type { AfEvent, AfFixture, AfLineup, AfPair, AfStandingsItem, AfTeamItem, AfTeamLite, AfTopScorer } from './raw.js';
 
 export const afId = (id: number | string) => `af-${id}`;

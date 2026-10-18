@@ -125,6 +125,39 @@ describe('other endpoints', () => {
     expect(unknownRoute.res.status).toBe(404);
   });
 
+  it('GET /competitions/:id/standings computes group tables when the provider has none', async () => {
+    const { get, upstream } = setup();
+    upstream.routes.unshift({ match: /^\/v4\/competitions\/WC\/standings/, status: 404 });
+    upstream.routes.unshift({ match: /^\/v4\/competitions\/WC\/matches/, body: { matches: [fixture<Record<string, unknown>>('fd/match-penalties.json'), {
+      id: 1, utcDate: '2026-06-12T18:00:00Z', status: 'FINISHED', stage: 'GROUP_STAGE', group: 'GROUP_A', competition: { code: 'WC' },
+      homeTeam: { id: 769, name: 'Mexico' }, awayTeam: { id: 8030, name: 'South Africa' },
+      score: { duration: 'REGULAR', fullTime: { home: 2, away: 1 } },
+    }] } });
+    const { res, body } = await get<Envelope<Standings>>('/api/v1/competitions/WC/standings');
+    expect(res.status).toBe(200);
+    expect(body.data.groups.map((g) => g.name)).toEqual(['Group A']);
+    expect(body.data.groups[0]!.rows.map((r) => [r.team.name, r.points])).toEqual([['Mexico', 3], ['South Africa', 0]]);
+    expect(body.meta.warnings[0]).toContain('calculated from results');
+  });
+
+  it('GET /competitions/:id/scorers is an empty list, not an error, when the provider has none', async () => {
+    const { get, upstream } = setup();
+    upstream.routes.unshift({ match: /^\/v4\/competitions\/PL\/scorers/, status: 404 });
+    const { res, body } = await get<Envelope<unknown[]>>('/api/v1/competitions/PL/scorers');
+    expect(res.status).toBe(200);
+    expect(body.data).toEqual([]);
+  });
+
+  it('GET /matches/:id falls back to the cached list version when the budget is spent', async () => {
+    const { get, upstream } = setup();
+    await get('/api/v1/matches?date=2026-10-18'); // warms fd:day:2026-10-18
+    upstream.routes.unshift({ match: /^\/v4\/matches\/540004$/, status: 429, headers: { 'retry-after': '30' } });
+    const { res, body } = await get<Envelope<MatchDetail>>('/api/v1/matches/fd-540004');
+    expect(res.status).toBe(200);
+    expect(body.data).toMatchObject({ id: 'fd-540004', events: [], lineups: null, rivalry: 'El Clásico' });
+    expect(body.meta.partial).toBe(true);
+  });
+
   it('GET /matches/:id merges head-to-head and league positions', async () => {
     const { get, upstream } = setup();
     const raw = fixture<{ matches: Record<string, unknown>[] }>('fd/matches-2026-10-18.json').matches.find((m) => m.id === 540003);

@@ -41,13 +41,32 @@ export function matchFeaturedTeams(teams: readonly TeamRef[], kind: FeaturedTeam
   return out;
 }
 
-/** Max competitions whose team lists we fetch while serving one request; the cron warms the rest. */
-const RESOLVE_PER_REQUEST = 2;
+/** Max uncached competition team lists fetched while serving one request; the cron warms the rest. */
+const RESOLVE_PER_REQUEST = 1;
+
+/**
+ * Featured-id resolution is a nice-to-have (name matching already works), so it
+ * only spends provider budget when the current minute is less than half used,
+ * leaving the rest for what the user actually asked for.
+ */
+async function hasSpareBudget(ctx: AppContext, comp: ActiveCompetition): Promise<boolean> {
+  try {
+    const budget = comp.source === 'football-data' ? ctx.budgets.fd : ctx.budgets.af;
+    const snap = await budget.snapshot();
+    if (snap.blockedUntil) return false;
+    if (snap.minuteUsed * 2 >= snap.perMinute) return false;
+    if (snap.perDay !== null && snap.dayUsed !== null && snap.dayUsed * 2 >= snap.perDay) return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Resolves featured team ids by fetching each relevant competition's team list
- * and matching names. The result is cached for a week; while incomplete, each
- * request resolves a couple more competitions. Name matching covers the gap.
+ * and matching names. The result is cached for a week; while incomplete, team
+ * lists already cached are used for free and at most one more is fetched per
+ * request, only when the provider budget has room. Name matching covers the gap.
  */
 export async function featuredIndex(ctx: AppContext, active: readonly ActiveCompetition[], budget = RESOLVE_PER_REQUEST): Promise<FeaturedIndex> {
   const key = 'featured:index:v1';
@@ -64,26 +83,33 @@ export async function featuredIndex(ctx: AppContext, active: readonly ActiveComp
   const todo = active.filter((a) => wanted.has(a.config.id) && !index.resolved.includes(a.config.id));
 
   let attempts = 0;
+  let changed = false;
   for (const comp of todo) {
-    if (attempts >= budget) break;
-    attempts++;
+    const cached = await ctx.cache.peek<TeamRef[]>(teamsKey(comp));
+    if (!cached) {
+      if (attempts >= budget || !(await hasSpareBudget(ctx, comp))) continue;
+      attempts++;
+    }
     try {
-      const teams = await competitionTeams(ctx, comp);
+      const teams = cached ? cached.v : await competitionTeams(ctx, comp);
       Object.assign(index.byId, matchFeaturedTeams(teams, comp.config.category === 'international' ? 'national' : 'club'));
       index.resolved.push(comp.config.id);
+      changed = true;
     } catch (e) {
       ctx.logger.warn('featured.resolve_failed', { competition: comp.config.id, error: errorMessage(e) });
       break;
     }
   }
   index.complete = todo.every((c) => index.resolved.includes(c.config.id));
-  if (attempts > 0 || !existing) await ctx.cache.put(key, index, index.complete ? TTL.featuredMap : 600);
+  if (changed || !existing) await ctx.cache.put(key, index, index.complete ? TTL.featuredMap : 600);
   return index;
 }
 
+const teamsKey = (comp: ActiveCompetition) => `${cachePrefix(comp.source)}:teams:${comp.config.id}`;
+
 export async function competitionTeams(ctx: AppContext, comp: ActiveCompetition): Promise<TeamRef[]> {
   const provider = providerFor(ctx, comp.source);
-  const res = await ctx.cache.get(`${cachePrefix(comp.source)}:teams:${comp.config.id}`, () => provider.competitionTeams(comp.config), {
+  const res = await ctx.cache.get(teamsKey(comp), () => provider.competitionTeams(comp.config), {
     ttl: TTL.competitionTeams,
   });
   return res.data;
