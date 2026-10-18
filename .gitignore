@@ -1,0 +1,23 @@
+# Dependencies (Vercel installs them from package-lock.json)
+node_modules/
+
+# Vercel CLI link and build output
+.vercel/
+
+# Secrets: keep only the template
+.env
+.env.*
+!.env.example
+
+# Test, coverage and tool caches
+coverage/
+.vite/
+*.tsbuildinfo
+dist/
+
+# Logs and OS files
+*.log
+npm-debug.log*
+.DS_Store
+.idea/
+.vscode/
