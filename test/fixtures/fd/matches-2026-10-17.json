@@ -1,0 +1,122 @@
+{
+ "filters": {},
+ "resultSet": {
+  "count": 2
+ },
+ "matches": [
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 2015,
+    "name": "Ligue 1",
+    "code": "FL1",
+    "type": "LEAGUE",
+    "emblem": "https://crests.football-data.org/FL1.png"
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 539001,
+   "utcDate": "2026-10-17T17:00:00Z",
+   "status": "FINISHED",
+   "matchday": 8,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 524,
+    "name": "Paris Saint-Germain FC",
+    "shortName": "PSG",
+    "tla": "PSG",
+    "crest": "https://crests.football-data.org/524.png"
+   },
+   "awayTeam": {
+    "id": 516,
+    "name": "Olympique de Marseille",
+    "shortName": "Marseille",
+    "tla": "MAR",
+    "crest": "https://crests.football-data.org/516.png"
+   },
+   "score": {
+    "winner": "HOME_TEAM",
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": 3,
+     "away": 1
+    },
+    "halfTime": {
+     "home": 1,
+     "away": 0
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": []
+  },
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 2021,
+    "name": "Premier League",
+    "code": "PL",
+    "type": "LEAGUE",
+    "emblem": "https://crests.football-data.org/PL.png"
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 539002,
+   "utcDate": "2026-10-17T19:00:00Z",
+   "status": "FINISHED",
+   "matchday": 8,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 61,
+    "name": "Chelsea FC",
+    "shortName": "Chelsea",
+    "tla": "CHE",
+    "crest": "https://crests.football-data.org/61.png"
+   },
+   "awayTeam": {
+    "id": 64,
+    "name": "Liverpool FC",
+    "shortName": "Liverpool",
+    "tla": "LIV",
+    "crest": "https://crests.football-data.org/64.png"
+   },
+   "score": {
+    "winner": "DRAW",
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": 2,
+     "away": 2
+    },
+    "halfTime": {
+     "home": 0,
+     "away": 1
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": []
+  }
+ ]
+}

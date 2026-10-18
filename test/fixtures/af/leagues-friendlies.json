@@ -1,0 +1,33 @@
+{
+ "get": "leagues",
+ "errors": [],
+ "results": 1,
+ "response": [
+  {
+   "league": {
+    "id": 10,
+    "name": "Friendlies",
+    "type": "Cup",
+    "logo": "https://media.api-sports.io/football/leagues/10.png"
+   },
+   "country": {
+    "name": "World",
+    "code": null
+   },
+   "seasons": [
+    {
+     "year": 2025,
+     "start": "2025-01-01",
+     "end": "2025-12-31",
+     "current": false
+    },
+    {
+     "year": 2026,
+     "start": "2026-01-01",
+     "end": "2026-12-31",
+     "current": true
+    }
+   ]
+  }
+ ]
+}

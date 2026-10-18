@@ -1,0 +1,307 @@
+{
+ "filters": {
+  "dateFrom": "2026-10-18",
+  "dateTo": "2026-10-19",
+  "permission": "TIER_ONE"
+ },
+ "resultSet": {
+  "count": 5
+ },
+ "matches": [
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 2019,
+    "name": "Serie A",
+    "code": "SA",
+    "type": "LEAGUE",
+    "emblem": "https://crests.football-data.org/SA.png"
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 540001,
+   "utcDate": "2026-10-18T10:00:00Z",
+   "status": "IN_PLAY",
+   "matchday": 8,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 108,
+    "name": "FC Internazionale Milano",
+    "shortName": "Inter",
+    "tla": "INT",
+    "crest": "https://crests.football-data.org/108.png"
+   },
+   "awayTeam": {
+    "id": 109,
+    "name": "Juventus FC",
+    "shortName": "Juventus",
+    "tla": "JUV",
+    "crest": "https://crests.football-data.org/109.png"
+   },
+   "score": {
+    "winner": null,
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": 1,
+     "away": 0
+    },
+    "halfTime": {
+     "home": 1,
+     "away": 0
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": [],
+   "minute": 67,
+   "injuryTime": null
+  },
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 2002,
+    "name": "Bundesliga",
+    "code": "BL1",
+    "type": "LEAGUE",
+    "emblem": "https://crests.football-data.org/BL1.png"
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 540002,
+   "utcDate": "2026-10-18T13:30:00Z",
+   "status": "TIMED",
+   "matchday": 8,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 16,
+    "name": "FC Augsburg",
+    "shortName": "Augsburg",
+    "tla": "FCA",
+    "crest": "https://crests.football-data.org/16.png"
+   },
+   "awayTeam": {
+    "id": 15,
+    "name": "1. FSV Mainz 05",
+    "shortName": "Mainz",
+    "tla": "M05",
+    "crest": "https://crests.football-data.org/15.png"
+   },
+   "score": {
+    "winner": null,
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": null,
+     "away": null
+    },
+    "halfTime": {
+     "home": null,
+     "away": null
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": []
+  },
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 2021,
+    "name": "Premier League",
+    "code": "PL",
+    "type": "LEAGUE",
+    "emblem": "https://crests.football-data.org/PL.png"
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 540003,
+   "utcDate": "2026-10-18T15:30:00Z",
+   "status": "TIMED",
+   "matchday": 8,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 57,
+    "name": "Arsenal FC",
+    "shortName": "Arsenal",
+    "tla": "ARS",
+    "crest": "https://crests.football-data.org/57.png"
+   },
+   "awayTeam": {
+    "id": 65,
+    "name": "Manchester City FC",
+    "shortName": "Man City",
+    "tla": "MCI",
+    "crest": "https://crests.football-data.org/65.png"
+   },
+   "score": {
+    "winner": null,
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": null,
+     "away": null
+    },
+    "halfTime": {
+     "home": null,
+     "away": null
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": [
+    {
+     "id": 11605,
+     "name": "Michael Oliver",
+     "type": "REFEREE",
+     "nationality": "England"
+    }
+   ]
+  },
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 2014,
+    "name": "Primera Division",
+    "code": "PD",
+    "type": "LEAGUE",
+    "emblem": "https://crests.football-data.org/PD.png"
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 540004,
+   "utcDate": "2026-10-18T19:00:00Z",
+   "status": "TIMED",
+   "matchday": 9,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 86,
+    "name": "Real Madrid CF",
+    "shortName": "Real Madrid",
+    "tla": "RMA",
+    "crest": "https://crests.football-data.org/86.png"
+   },
+   "awayTeam": {
+    "id": 81,
+    "name": "FC Barcelona",
+    "shortName": "Barça",
+    "tla": "FCB",
+    "crest": "https://crests.football-data.org/81.svg"
+   },
+   "score": {
+    "winner": null,
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": null,
+     "away": null
+    },
+    "halfTime": {
+     "home": null,
+     "away": null
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": [],
+   "venue": "Estadio Santiago Bernabéu"
+  },
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 9999,
+    "name": "Some Cup",
+    "code": "XYZ",
+    "type": "CUP",
+    "emblem": null
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 540005,
+   "utcDate": "2026-10-18T12:00:00Z",
+   "status": "TIMED",
+   "matchday": 8,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 1,
+    "name": "A FC",
+    "shortName": "A",
+    "tla": "AAA",
+    "crest": "https://crests.football-data.org/1.png"
+   },
+   "awayTeam": {
+    "id": 2,
+    "name": "B FC",
+    "shortName": "B",
+    "tla": "BBB",
+    "crest": "https://crests.football-data.org/2.png"
+   },
+   "score": {
+    "winner": null,
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": null,
+     "away": null
+    },
+    "halfTime": {
+     "home": null,
+     "away": null
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": []
+  }
+ ]
+}

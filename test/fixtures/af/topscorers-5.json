@@ -1,0 +1,37 @@
+{
+ "get": "players/topscorers",
+ "errors": [],
+ "results": 1,
+ "response": [
+  {
+   "player": {
+    "id": 202,
+    "name": "Cristiano Ronaldo",
+    "nationality": "Portugal",
+    "birth": {
+     "date": "1985-02-05"
+    }
+   },
+   "statistics": [
+    {
+     "team": {
+      "id": 27,
+      "name": "Portugal",
+      "logo": "p.png"
+     },
+     "games": {
+      "appearences": 6,
+      "position": "Attacker"
+     },
+     "goals": {
+      "total": 8,
+      "assists": 1
+     },
+     "penalty": {
+      "scored": 3
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+{
+ "count": 2,
+ "filters": {
+  "limit": 10
+ },
+ "competition": {
+  "id": 2019,
+  "name": "Serie A",
+  "code": "SA"
+ },
+ "season": {
+  "startDate": "2020-09-19",
+  "endDate": "2021-05-23"
+ },
+ "scorers": [
+  {
+   "player": {
+    "id": 44,
+    "name": "Cristiano Ronaldo",
+    "firstName": "Cristiano Ronaldo",
+    "lastName": "dos Santos Aveiro",
+    "dateOfBirth": "1985-02-05",
+    "nationality": "Portugal",
+    "position": "Attacker",
+    "shirtNumber": null
+   },
+   "team": {
+    "id": 109,
+    "name": "Juventus FC",
+    "shortName": "Juventus",
+    "tla": "JUV",
+    "crest": "https://crests.football-data.org/109.svg"
+   },
+   "goals": 29,
+   "assists": 3,
+   "penalties": 6
+  },
+  {
+   "player": {
+    "id": 3662,
+    "name": "Romelu Lukaku",
+    "nationality": "Belgium",
+    "position": "Attacker"
+   },
+   "team": {
+    "id": 108,
+    "name": "FC Internazionale Milano",
+    "shortName": "Inter",
+    "tla": "INT"
+   },
+   "playedMatches": 36,
+   "goals": 24,
+   "assists": null,
+   "penalties": null
+  },
+  {
+   "player": null,
+   "team": null,
+   "goals": 3
+  }
+ ]
+}

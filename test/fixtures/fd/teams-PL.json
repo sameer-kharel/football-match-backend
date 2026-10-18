@@ -1,0 +1,47 @@
+{
+ "count": 4,
+ "teams": [
+  {
+   "id": 57,
+   "name": "Arsenal FC",
+   "shortName": "Arsenal",
+   "tla": "ARS"
+  },
+  {
+   "id": 65,
+   "name": "Manchester City FC",
+   "shortName": "Man City",
+   "tla": "MCI"
+  },
+  {
+   "id": 64,
+   "name": "Liverpool FC",
+   "shortName": "Liverpool",
+   "tla": "LIV"
+  },
+  {
+   "id": 61,
+   "name": "Chelsea FC",
+   "shortName": "Chelsea",
+   "tla": "CHE"
+  },
+  {
+   "id": 73,
+   "name": "Tottenham Hotspur FC",
+   "shortName": "Tottenham",
+   "tla": "TOT"
+  },
+  {
+   "id": 66,
+   "name": "Manchester United FC",
+   "shortName": "Man United",
+   "tla": "MUN"
+  },
+  {
+   "id": 1044,
+   "name": "AFC Bournemouth",
+   "shortName": "Bournemouth",
+   "tla": "BOU"
+  }
+ ]
+}

@@ -1,0 +1,389 @@
+{
+ "get": "fixtures",
+ "errors": [],
+ "results": 1,
+ "response": [
+  {
+   "fixture": {
+    "id": 1400010,
+    "referee": "Szymon Marciniak, Poland",
+    "timezone": "UTC",
+    "date": "2026-06-08T19:00:00+00:00",
+    "timestamp": 0,
+    "periods": {
+     "first": null,
+     "second": null
+    },
+    "venue": {
+     "id": 1,
+     "name": "Estadio Nacional",
+     "city": "Lisbon"
+    },
+    "status": {
+     "long": "x",
+     "short": "PEN",
+     "elapsed": null,
+     "extra": null
+    }
+   },
+   "league": {
+    "id": 5,
+    "name": "L",
+    "country": "World",
+    "logo": "https://media.api-sports.io/football/leagues/10.png",
+    "flag": null,
+    "season": 2026,
+    "round": "Final"
+   },
+   "teams": {
+    "home": {
+     "id": 27,
+     "name": "Portugal",
+     "logo": "https://media.api-sports.io/football/teams/27.png",
+     "winner": true
+    },
+    "away": {
+     "id": 9,
+     "name": "Spain",
+     "logo": "https://media.api-sports.io/football/teams/9.png",
+     "winner": false
+    }
+   },
+   "goals": {
+    "home": 2,
+    "away": 2
+   },
+   "score": {
+    "halftime": {
+     "home": 1,
+     "away": 1
+    },
+    "fulltime": {
+     "home": 2,
+     "away": 2
+    },
+    "extratime": {
+     "home": 0,
+     "away": 0
+    },
+    "penalty": {
+     "home": 5,
+     "away": 3
+    }
+   },
+   "events": [
+    {
+     "time": {
+      "elapsed": 21,
+      "extra": null
+     },
+     "team": {
+      "id": 9,
+      "name": "Spain"
+     },
+     "player": {
+      "id": 100,
+      "name": "M. Zubimendi"
+     },
+     "assist": {
+      "id": null,
+      "name": null
+     },
+     "type": "Goal",
+     "detail": "Normal Goal",
+     "comments": null
+    },
+    {
+     "time": {
+      "elapsed": 26,
+      "extra": null
+     },
+     "team": {
+      "id": 27,
+      "name": "Portugal"
+     },
+     "player": {
+      "id": 200,
+      "name": "N. Mendes"
+     },
+     "assist": {
+      "id": 201,
+      "name": "P. Neto"
+     },
+     "type": "Goal",
+     "detail": "Normal Goal",
+     "comments": null
+    },
+    {
+     "time": {
+      "elapsed": 45,
+      "extra": 2
+     },
+     "team": {
+      "id": 9,
+      "name": "Spain"
+     },
+     "player": {
+      "id": 101,
+      "name": "M. Oyarzabal"
+     },
+     "assist": {
+      "id": 102,
+      "name": "Pedri"
+     },
+     "type": "Goal",
+     "detail": "Normal Goal",
+     "comments": null
+    },
+    {
+     "time": {
+      "elapsed": 46,
+      "extra": null
+     },
+     "team": {
+      "id": 27,
+      "name": "Portugal"
+     },
+     "player": {
+      "id": 201,
+      "name": "P. Neto"
+     },
+     "assist": {
+      "id": 210,
+      "name": "F. Concei\u00e7\u00e3o"
+     },
+     "type": "subst",
+     "detail": "Substitution 1",
+     "comments": null
+    },
+    {
+     "time": {
+      "elapsed": 61,
+      "extra": null
+     },
+     "team": {
+      "id": 27,
+      "name": "Portugal"
+     },
+     "player": {
+      "id": 202,
+      "name": "Cristiano Ronaldo"
+     },
+     "assist": {
+      "id": null,
+      "name": null
+     },
+     "type": "Goal",
+     "detail": "Normal Goal",
+     "comments": null
+    },
+    {
+     "time": {
+      "elapsed": 70,
+      "extra": null
+     },
+     "team": {
+      "id": 9,
+      "name": "Spain"
+     },
+     "player": {
+      "id": 110,
+      "name": "Mikel Merino"
+     },
+     "assist": {
+      "id": 102,
+      "name": "Pedri"
+     },
+     "type": "subst",
+     "detail": "Substitution 2",
+     "comments": null
+    },
+    {
+     "time": {
+      "elapsed": 72,
+      "extra": null
+     },
+     "team": {
+      "id": 9,
+      "name": "Spain"
+     },
+     "player": {
+      "id": 103,
+      "name": "Le Normand"
+     },
+     "assist": {
+      "id": null,
+      "name": null
+     },
+     "type": "Card",
+     "detail": "Yellow Card",
+     "comments": "Foul"
+    },
+    {
+     "time": {
+      "elapsed": 120,
+      "extra": null
+     },
+     "team": {
+      "id": 27,
+      "name": "Portugal"
+     },
+     "player": {
+      "id": 202,
+      "name": "Cristiano Ronaldo"
+     },
+     "assist": {
+      "id": null,
+      "name": null
+     },
+     "type": "Goal",
+     "detail": "Penalty",
+     "comments": "Penalty Shootout"
+    }
+   ],
+   "lineups": [
+    {
+     "team": {
+      "id": 27,
+      "name": "Portugal"
+     },
+     "formation": "4-3-3",
+     "coach": {
+      "id": 1,
+      "name": "Roberto Mart\u00ednez"
+     },
+     "startXI": [
+      {
+       "player": {
+        "id": 220,
+        "name": "Diogo Costa",
+        "number": 22,
+        "pos": "G",
+        "grid": "1:1"
+       }
+      },
+      {
+       "player": {
+        "id": 201,
+        "name": "P. Neto",
+        "number": 18,
+        "pos": "F",
+        "grid": "4:1"
+       }
+      },
+      {
+       "player": {
+        "id": 202,
+        "name": "Cristiano Ronaldo",
+        "number": 7,
+        "pos": "F",
+        "grid": "4:2"
+       }
+      }
+     ],
+     "substitutes": [
+      {
+       "player": {
+        "id": 210,
+        "name": "F. Concei\u00e7\u00e3o",
+        "number": 26,
+        "pos": "F",
+        "grid": null
+       }
+      }
+     ]
+    },
+    {
+     "team": {
+      "id": 9,
+      "name": "Spain"
+     },
+     "formation": "4-3-3",
+     "coach": {
+      "id": 2,
+      "name": "Luis de la Fuente"
+     },
+     "startXI": [
+      {
+       "player": {
+        "id": 120,
+        "name": "Unai Sim\u00f3n",
+        "number": 23,
+        "pos": "G",
+        "grid": "1:1"
+       }
+      },
+      {
+       "player": {
+        "id": 102,
+        "name": "Pedri",
+        "number": 20,
+        "pos": "M",
+        "grid": "3:1"
+       }
+      }
+     ],
+     "substitutes": [
+      {
+       "player": {
+        "id": 110,
+        "name": "Mikel Merino",
+        "number": 6,
+        "pos": "M",
+        "grid": null
+       }
+      }
+     ]
+    }
+   ],
+   "statistics": [
+    {
+     "team": {
+      "id": 27
+     },
+     "statistics": [
+      {
+       "type": "Ball Possession",
+       "value": "38%"
+      },
+      {
+       "type": "Total Shots",
+       "value": 11
+      },
+      {
+       "type": "Shots on Goal",
+       "value": 5
+      },
+      {
+       "type": "Red Cards",
+       "value": null
+      }
+     ]
+    },
+    {
+     "team": {
+      "id": 9
+     },
+     "statistics": [
+      {
+       "type": "Ball Possession",
+       "value": "62%"
+      },
+      {
+       "type": "Total Shots",
+       "value": 17
+      },
+      {
+       "type": "Shots on Goal",
+       "value": 6
+      },
+      {
+       "type": "Red Cards",
+       "value": null
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

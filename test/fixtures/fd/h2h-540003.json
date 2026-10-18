@@ -1,0 +1,145 @@
+{
+ "filters": {
+  "limit": 10
+ },
+ "resultSet": {
+  "count": 3
+ },
+ "aggregates": {
+  "numberOfMatches": 3,
+  "totalGoals": 7,
+  "homeTeam": {
+   "id": 57,
+   "name": "Arsenal FC",
+   "wins": 1,
+   "draws": 1,
+   "losses": 1
+  },
+  "awayTeam": {
+   "id": 65,
+   "name": "Manchester City FC",
+   "wins": 1,
+   "draws": 1,
+   "losses": 1
+  }
+ },
+ "matches": [
+  {
+   "id": 500001,
+   "utcDate": "2026-03-30T15:30:00Z",
+   "status": "FINISHED",
+   "competition": {
+    "code": "PL",
+    "name": "Premier League"
+   },
+   "season": {
+    "startDate": "2025-08-15",
+    "endDate": "2026-05-24"
+   },
+   "matchday": 31,
+   "stage": "REGULAR_SEASON",
+   "homeTeam": {
+    "id": 65,
+    "name": "Manchester City FC",
+    "shortName": "Man City",
+    "tla": "MCI"
+   },
+   "awayTeam": {
+    "id": 57,
+    "name": "Arsenal FC",
+    "shortName": "Arsenal",
+    "tla": "ARS"
+   },
+   "score": {
+    "winner": "HOME_TEAM",
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": 2,
+     "away": 1
+    },
+    "halfTime": {
+     "home": 1,
+     "away": 0
+    }
+   }
+  },
+  {
+   "id": 500002,
+   "utcDate": "2025-09-21T15:30:00Z",
+   "status": "FINISHED",
+   "competition": {
+    "code": "PL",
+    "name": "Premier League"
+   },
+   "season": {
+    "startDate": "2025-08-15",
+    "endDate": "2026-05-24"
+   },
+   "matchday": 5,
+   "stage": "REGULAR_SEASON",
+   "homeTeam": {
+    "id": 57,
+    "name": "Arsenal FC",
+    "shortName": "Arsenal",
+    "tla": "ARS"
+   },
+   "awayTeam": {
+    "id": 65,
+    "name": "Manchester City FC",
+    "shortName": "Man City",
+    "tla": "MCI"
+   },
+   "score": {
+    "winner": "DRAW",
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": 1,
+     "away": 1
+    },
+    "halfTime": {
+     "home": 0,
+     "away": 0
+    }
+   }
+  },
+  {
+   "id": 500003,
+   "utcDate": "2025-02-02T16:30:00Z",
+   "status": "FINISHED",
+   "competition": {
+    "code": "FAC",
+    "name": "FA Cup"
+   },
+   "season": {
+    "startDate": "2024-11-01",
+    "endDate": "2025-05-17"
+   },
+   "matchday": null,
+   "stage": "ROUND_4",
+   "homeTeam": {
+    "id": 57,
+    "name": "Arsenal FC",
+    "shortName": "Arsenal",
+    "tla": "ARS"
+   },
+   "awayTeam": {
+    "id": 65,
+    "name": "Manchester City FC",
+    "shortName": "Man City",
+    "tla": "MCI"
+   },
+   "score": {
+    "winner": "HOME_TEAM",
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": 2,
+     "away": 0
+    },
+    "halfTime": {
+     "home": 1,
+     "away": 0
+    }
+   }
+  }
+ ]
+}

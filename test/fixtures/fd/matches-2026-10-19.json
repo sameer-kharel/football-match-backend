@@ -1,0 +1,65 @@
+{
+ "filters": {},
+ "resultSet": {
+  "count": 1
+ },
+ "matches": [
+  {
+   "area": {
+    "id": 1,
+    "name": "x"
+   },
+   "competition": {
+    "id": 2021,
+    "name": "Premier League",
+    "code": "PL",
+    "type": "LEAGUE",
+    "emblem": "https://crests.football-data.org/PL.png"
+   },
+   "season": {
+    "id": 2400,
+    "startDate": "2026-08-15",
+    "endDate": "2027-05-23",
+    "currentMatchday": 8,
+    "winner": null
+   },
+   "id": 541001,
+   "utcDate": "2026-10-19T19:00:00Z",
+   "status": "POSTPONED",
+   "matchday": 8,
+   "stage": "REGULAR_SEASON",
+   "group": null,
+   "lastUpdated": "2026-10-18T11:58:00Z",
+   "homeTeam": {
+    "id": 66,
+    "name": "Manchester United FC",
+    "shortName": "Man United",
+    "tla": "MUN",
+    "crest": "https://crests.football-data.org/66.png"
+   },
+   "awayTeam": {
+    "id": 73,
+    "name": "Tottenham Hotspur FC",
+    "shortName": "Tottenham",
+    "tla": "TOT",
+    "crest": "https://crests.football-data.org/73.png"
+   },
+   "score": {
+    "winner": null,
+    "duration": "REGULAR",
+    "fullTime": {
+     "home": null,
+     "away": null
+    },
+    "halfTime": {
+     "home": null,
+     "away": null
+    }
+   },
+   "odds": {
+    "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+   },
+   "referees": []
+  }
+ ]
+}

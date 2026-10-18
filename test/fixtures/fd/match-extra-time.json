@@ -1,0 +1,61 @@
+{
+ "area": {
+  "id": 1,
+  "name": "x"
+ },
+ "competition": {
+  "id": 2000,
+  "name": "FIFA World Cup",
+  "code": "WC",
+  "type": "CUP",
+  "emblem": "https://crests.football-data.org/WC.png"
+ },
+ "season": {
+  "id": 2400,
+  "startDate": "2026-08-15",
+  "endDate": "2027-05-23",
+  "currentMatchday": 8,
+  "winner": null
+ },
+ "id": 391870,
+ "utcDate": "2026-07-04T16:00:00Z",
+ "status": "FINISHED",
+ "matchday": null,
+ "stage": "QUARTER_FINALS",
+ "group": null,
+ "lastUpdated": "2026-10-18T11:58:00Z",
+ "homeTeam": {
+  "id": 764,
+  "name": "Brazil",
+  "shortName": "Brazil",
+  "tla": "BRA",
+  "crest": "https://crests.football-data.org/764.png"
+ },
+ "awayTeam": {
+  "id": 760,
+  "name": "Spain",
+  "shortName": "Spain",
+  "tla": "ESP",
+  "crest": "https://crests.football-data.org/760.png"
+ },
+ "score": {
+  "winner": "AWAY_TEAM",
+  "duration": "EXTRA_TIME",
+  "fullTime": {
+   "homeTeam": 1,
+   "awayTeam": 2
+  },
+  "halfTime": {
+   "homeTeam": 0,
+   "awayTeam": 1
+  },
+  "extraTime": {
+   "homeTeam": 0,
+   "awayTeam": 1
+  }
+ },
+ "odds": {
+  "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+ },
+ "referees": []
+}

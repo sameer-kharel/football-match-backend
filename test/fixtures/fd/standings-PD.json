@@ -1,0 +1,273 @@
+{
+ "filters": {
+  "season": "2021"
+ },
+ "area": {
+  "id": 2224,
+  "name": "Spain",
+  "code": "ESP"
+ },
+ "competition": {
+  "id": 2014,
+  "name": "Primera Division",
+  "code": "PD",
+  "type": "LEAGUE"
+ },
+ "season": {
+  "id": 380,
+  "startDate": "2021-08-13",
+  "endDate": "2022-05-22",
+  "currentMatchday": 34
+ },
+ "standings": [
+  {
+   "stage": "REGULAR_SEASON",
+   "type": "TOTAL",
+   "group": null,
+   "table": [
+    {
+     "position": 1,
+     "team": {
+      "id": 86,
+      "name": "Real Madrid CF",
+      "shortName": "Real Madrid",
+      "tla": "RMA",
+      "crest": "https://crests.football-data.org/86.png"
+     },
+     "playedGames": 34,
+     "form": "W,W,W,W,W",
+     "won": 25,
+     "draw": 6,
+     "lost": 3,
+     "points": 81,
+     "goalsFor": 73,
+     "goalsAgainst": 29,
+     "goalDifference": 44
+    },
+    {
+     "position": 2,
+     "team": {
+      "id": 81,
+      "name": "FC Barcelona",
+      "shortName": "Barça",
+      "tla": "FCB",
+      "crest": "https://crests.football-data.org/81.png"
+     },
+     "playedGames": 34,
+     "form": "W,L,W,L,W",
+     "won": 19,
+     "draw": 9,
+     "lost": 6,
+     "points": 66,
+     "goalsFor": 63,
+     "goalsAgainst": 34,
+     "goalDifference": 29
+    },
+    {
+     "position": 3,
+     "team": {
+      "id": 559,
+      "name": "Sevilla FC",
+      "shortName": "Sevilla FC",
+      "tla": "SEV",
+      "crest": "https://crests.football-data.org/559.png"
+     },
+     "playedGames": 34,
+     "form": "D,W,L,W,L",
+     "won": 17,
+     "draw": 13,
+     "lost": 4,
+     "points": 64,
+     "goalsFor": 50,
+     "goalsAgainst": 28,
+     "goalDifference": 22
+    },
+    {
+     "position": 4,
+     "team": {
+      "id": 78,
+      "name": "Club Atlético de Madrid",
+      "shortName": "Atleti",
+      "tla": "ATL",
+      "crest": "https://crests.football-data.org/78.png"
+     },
+     "playedGames": 34,
+     "form": "L,D,W,L,W",
+     "won": 18,
+     "draw": 7,
+     "lost": 9,
+     "points": 61,
+     "goalsFor": 59,
+     "goalsAgainst": 41,
+     "goalDifference": 18
+    },
+    {
+     "position": 5,
+     "team": {
+      "id": 90,
+      "name": "Real Betis Balompié",
+      "shortName": "Real Betis",
+      "tla": "BET",
+      "crest": "https://crests.football-data.org/90.png"
+     },
+     "playedGames": 33,
+     "form": "L,D,W,W,D",
+     "won": 17,
+     "draw": 6,
+     "lost": 10,
+     "points": 57,
+     "goalsFor": 56,
+     "goalsAgainst": 38,
+     "goalDifference": 18
+    },
+    {
+     "position": 18,
+     "team": {
+      "id": 285,
+      "name": "RCD Mallorca",
+      "shortName": "Mallorca",
+      "tla": "MAL",
+      "crest": "https://crests.football-data.org/285.png"
+     },
+     "playedGames": 34,
+     "form": null,
+     "won": 8,
+     "draw": 8,
+     "lost": 18,
+     "points": 32,
+     "goalsFor": 31,
+     "goalsAgainst": 58,
+     "goalDifference": -27
+    },
+    {
+     "position": 19,
+     "team": {
+      "id": 263,
+      "name": "Deportivo Alavés",
+      "shortName": "Alavés",
+      "tla": "ALA",
+      "crest": "https://crests.football-data.org/263.png"
+     },
+     "playedGames": 34,
+     "form": "W,L,W,L,L",
+     "won": 7,
+     "draw": 7,
+     "lost": 20,
+     "points": 28,
+     "goalsFor": 28,
+     "goalsAgainst": 56,
+     "goalDifference": -28
+    },
+    {
+     "position": 20,
+     "team": {
+      "id": 88,
+      "name": "Levante UD",
+      "shortName": "Levante",
+      "tla": "LEV",
+      "crest": "https://crests.football-data.org/88.png"
+     },
+     "playedGames": 34,
+     "form": "D,L,W,L,W",
+     "won": 5,
+     "draw": 11,
+     "lost": 18,
+     "points": 26,
+     "goalsFor": 42,
+     "goalsAgainst": 66,
+     "goalDifference": -24
+    }
+   ]
+  },
+  {
+   "stage": "REGULAR_SEASON",
+   "type": "HOME",
+   "group": null,
+   "table": [
+    {
+     "position": 1,
+     "team": {
+      "id": 86,
+      "name": "Real Madrid CF",
+      "shortName": "Real Madrid",
+      "tla": "RMA",
+      "crest": "https://crests.football-data.org/86.png"
+     },
+     "playedGames": 34,
+     "form": "W,W,W,W,W",
+     "won": 25,
+     "draw": 6,
+     "lost": 3,
+     "points": 81,
+     "goalsFor": 73,
+     "goalsAgainst": 29,
+     "goalDifference": 44
+    },
+    {
+     "position": 2,
+     "team": {
+      "id": 81,
+      "name": "FC Barcelona",
+      "shortName": "Barça",
+      "tla": "FCB",
+      "crest": "https://crests.football-data.org/81.png"
+     },
+     "playedGames": 34,
+     "form": "W,L,W,L,W",
+     "won": 19,
+     "draw": 9,
+     "lost": 6,
+     "points": 66,
+     "goalsFor": 63,
+     "goalsAgainst": 34,
+     "goalDifference": 29
+    }
+   ]
+  },
+  {
+   "stage": "REGULAR_SEASON",
+   "type": "AWAY",
+   "group": null,
+   "table": [
+    {
+     "position": 1,
+     "team": {
+      "id": 86,
+      "name": "Real Madrid CF",
+      "shortName": "Real Madrid",
+      "tla": "RMA",
+      "crest": "https://crests.football-data.org/86.png"
+     },
+     "playedGames": 34,
+     "form": "W,W,W,W,W",
+     "won": 25,
+     "draw": 6,
+     "lost": 3,
+     "points": 81,
+     "goalsFor": 73,
+     "goalsAgainst": 29,
+     "goalDifference": 44
+    },
+    {
+     "position": 2,
+     "team": {
+      "id": 81,
+      "name": "FC Barcelona",
+      "shortName": "Barça",
+      "tla": "FCB",
+      "crest": "https://crests.football-data.org/81.png"
+     },
+     "playedGames": 34,
+     "form": "W,L,W,L,W",
+     "won": 19,
+     "draw": 9,
+     "lost": 6,
+     "points": 66,
+     "goalsFor": 63,
+     "goalsAgainst": 34,
+     "goalDifference": 29
+    }
+   ]
+  }
+ ]
+}

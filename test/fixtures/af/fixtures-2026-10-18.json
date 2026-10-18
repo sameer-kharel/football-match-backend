@@ -1,0 +1,291 @@
+{
+ "get": "fixtures",
+ "parameters": {
+  "date": "2026-10-18",
+  "timezone": "UTC"
+ },
+ "errors": [],
+ "results": 4,
+ "paging": {
+  "current": 1,
+  "total": 1
+ },
+ "response": [
+  {
+   "fixture": {
+    "id": 1400001,
+    "referee": "Szymon Marciniak, Poland",
+    "timezone": "UTC",
+    "date": "2026-10-18T00:30:00+00:00",
+    "timestamp": 0,
+    "periods": {
+     "first": null,
+     "second": null
+    },
+    "venue": {
+     "id": 1,
+     "name": "Estadio Nacional",
+     "city": "Lisbon"
+    },
+    "status": {
+     "long": "x",
+     "short": "FT",
+     "elapsed": null,
+     "extra": null
+    }
+   },
+   "league": {
+    "id": 10,
+    "name": "L",
+    "country": "World",
+    "logo": "https://media.api-sports.io/football/leagues/10.png",
+    "flag": null,
+    "season": 2026,
+    "round": "Friendlies 1"
+   },
+   "teams": {
+    "home": {
+     "id": 6,
+     "name": "Brazil",
+     "logo": "https://media.api-sports.io/football/teams/6.png",
+     "winner": null
+    },
+    "away": {
+     "id": 26,
+     "name": "Argentina",
+     "logo": "https://media.api-sports.io/football/teams/26.png",
+     "winner": null
+    }
+   },
+   "goals": {
+    "home": 1,
+    "away": 1
+   },
+   "score": {
+    "halftime": {
+     "home": 0,
+     "away": 1
+    },
+    "fulltime": {
+     "home": 1,
+     "away": 1
+    },
+    "extratime": {
+     "home": null,
+     "away": null
+    },
+    "penalty": {
+     "home": null,
+     "away": null
+    }
+   }
+  },
+  {
+   "fixture": {
+    "id": 1400002,
+    "referee": "Szymon Marciniak, Poland",
+    "timezone": "UTC",
+    "date": "2026-10-18T18:45:00+00:00",
+    "timestamp": 0,
+    "periods": {
+     "first": null,
+     "second": null
+    },
+    "venue": {
+     "id": 1,
+     "name": "Estadio Nacional",
+     "city": "Lisbon"
+    },
+    "status": {
+     "long": "x",
+     "short": "2H",
+     "elapsed": 63,
+     "extra": null
+    }
+   },
+   "league": {
+    "id": 5,
+    "name": "L",
+    "country": "World",
+    "logo": "https://media.api-sports.io/football/leagues/10.png",
+    "flag": null,
+    "season": 2026,
+    "round": "League A - 4"
+   },
+   "teams": {
+    "home": {
+     "id": 27,
+     "name": "Portugal",
+     "logo": "https://media.api-sports.io/football/teams/27.png",
+     "winner": null
+    },
+    "away": {
+     "id": 9,
+     "name": "Spain",
+     "logo": "https://media.api-sports.io/football/teams/9.png",
+     "winner": null
+    }
+   },
+   "goals": {
+    "home": 2,
+    "away": 1
+   },
+   "score": {
+    "halftime": {
+     "home": 1,
+     "away": 1
+    },
+    "fulltime": {
+     "home": null,
+     "away": null
+    },
+    "extratime": {
+     "home": null,
+     "away": null
+    },
+    "penalty": {
+     "home": null,
+     "away": null
+    }
+   }
+  },
+  {
+   "fixture": {
+    "id": 1400003,
+    "referee": "Szymon Marciniak, Poland",
+    "timezone": "UTC",
+    "date": "2026-10-18T16:00:00+00:00",
+    "timestamp": 0,
+    "periods": {
+     "first": null,
+     "second": null
+    },
+    "venue": {
+     "id": 1,
+     "name": "Estadio Nacional",
+     "city": "Lisbon"
+    },
+    "status": {
+     "long": "x",
+     "short": "NS",
+     "elapsed": null,
+     "extra": null
+    }
+   },
+   "league": {
+    "id": 32,
+    "name": "L",
+    "country": "World",
+    "logo": "https://media.api-sports.io/football/leagues/10.png",
+    "flag": null,
+    "season": 2026,
+    "round": "Group I - 7"
+   },
+   "teams": {
+    "home": {
+     "id": 1090,
+     "name": "Norway",
+     "logo": "https://media.api-sports.io/football/teams/1090.png",
+     "winner": null
+    },
+    "away": {
+     "id": 768,
+     "name": "Italy",
+     "logo": "https://media.api-sports.io/football/teams/768.png",
+     "winner": null
+    }
+   },
+   "goals": {
+    "home": null,
+    "away": null
+   },
+   "score": {
+    "halftime": {
+     "home": null,
+     "away": null
+    },
+    "fulltime": {
+     "home": null,
+     "away": null
+    },
+    "extratime": {
+     "home": null,
+     "away": null
+    },
+    "penalty": {
+     "home": null,
+     "away": null
+    }
+   }
+  },
+  {
+   "fixture": {
+    "id": 1400004,
+    "referee": "Szymon Marciniak, Poland",
+    "timezone": "UTC",
+    "date": "2026-10-18T12:00:00+00:00",
+    "timestamp": 0,
+    "periods": {
+     "first": null,
+     "second": null
+    },
+    "venue": {
+     "id": 1,
+     "name": "Estadio Nacional",
+     "city": "Lisbon"
+    },
+    "status": {
+     "long": "x",
+     "short": "NS",
+     "elapsed": null,
+     "extra": null
+    }
+   },
+   "league": {
+    "id": 999,
+    "name": "L",
+    "country": "World",
+    "logo": "https://media.api-sports.io/football/leagues/10.png",
+    "flag": null,
+    "season": 2026,
+    "round": "Regular Season - 3"
+   },
+   "teams": {
+    "home": {
+     "id": 1,
+     "name": "X",
+     "logo": "https://media.api-sports.io/football/teams/1.png",
+     "winner": null
+    },
+    "away": {
+     "id": 2,
+     "name": "Y",
+     "logo": "https://media.api-sports.io/football/teams/2.png",
+     "winner": null
+    }
+   },
+   "goals": {
+    "home": null,
+    "away": null
+   },
+   "score": {
+    "halftime": {
+     "home": null,
+     "away": null
+    },
+    "fulltime": {
+     "home": null,
+     "away": null
+    },
+    "extratime": {
+     "home": null,
+     "away": null
+    },
+    "penalty": {
+     "home": null,
+     "away": null
+    }
+   }
+  }
+ ]
+}

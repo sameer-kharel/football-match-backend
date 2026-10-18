@@ -1,0 +1,70 @@
+{
+ "area": {
+  "id": 1,
+  "name": "x"
+ },
+ "competition": {
+  "id": 2000,
+  "name": "FIFA World Cup",
+  "code": "WC",
+  "type": "CUP",
+  "emblem": "https://crests.football-data.org/WC.png"
+ },
+ "season": {
+  "id": 2400,
+  "startDate": "2026-06-11",
+  "endDate": "2026-07-19",
+  "currentMatchday": null,
+  "winner": null
+ },
+ "id": 391881,
+ "utcDate": "2026-07-19T19:00:00Z",
+ "status": "FINISHED",
+ "matchday": null,
+ "stage": "FINAL",
+ "group": null,
+ "lastUpdated": "2026-10-18T11:58:00Z",
+ "homeTeam": {
+  "id": 762,
+  "name": "Argentina",
+  "shortName": "Argentina",
+  "tla": "ARG",
+  "crest": "https://crests.football-data.org/762.png"
+ },
+ "awayTeam": {
+  "id": 773,
+  "name": "France",
+  "shortName": "France",
+  "tla": "FRA",
+  "crest": "https://crests.football-data.org/773.png"
+ },
+ "score": {
+  "winner": "HOME_TEAM",
+  "duration": "PENALTY_SHOOTOUT",
+  "fullTime": {
+   "home": 7,
+   "away": 5
+  },
+  "halfTime": {
+   "home": 2,
+   "away": 0
+  },
+  "regularTime": {
+   "home": 2,
+   "away": 2
+  },
+  "extraTime": {
+   "home": 1,
+   "away": 1
+  },
+  "penalties": {
+   "home": 4,
+   "away": 2
+  }
+ },
+ "odds": {
+  "msg": "Activate Odds-Package in User-Panel to retrieve odds."
+ },
+ "referees": [],
+ "venue": "MetLife Stadium"
+}
