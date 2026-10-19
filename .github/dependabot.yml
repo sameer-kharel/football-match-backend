@@ -1,0 +1,30 @@
+# Weekly dependency updates as a few grouped PRs; CI checks each one before it can deploy.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    # Let new releases settle for a week before proposing them.
+    cooldown:
+      default-days: 7
+    groups:
+      production:
+        dependency-type: production
+        update-types: [minor, patch]
+      development:
+        dependency-type: development
+        update-types: [minor, patch]
+    ignore:
+      # typescript-eslint supports TypeScript < 6.1; bump both together by hand.
+      - dependency-name: typescript
+        update-types: [version-update:semver-minor, version-update:semver-major]
+      # Matches the Node 22 runtime pinned in package.json and .nvmrc.
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
