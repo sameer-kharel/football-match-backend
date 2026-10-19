@@ -8,9 +8,15 @@ import type { CompetitionCategory, CompetitionFormat, ZoneRule } from '../domain
  * - `priority`: lower numbers sort first everywhere (lists, pickers, grouping).
  * - `providers.footballData.code` is a football-data.org league code. Whether the
  *   configured token can access it is checked at runtime against /v4/competitions.
+ * - `providers.openLigaDb.shortcut` is an OpenLigaDB league shortcut (bl1, bl2, dfb).
+ *   Only leagues the OpenLigaDB team maintains themselves: community-run leagues there
+ *   are often incomplete. Keyless, so always available unless ENABLE_OPENLIGADB=false.
  * - `providers.apiFootball` is matched by name + country through /leagues at runtime
  *   (ids are resolved and cached, never hardcoded). Used only when
- *   ENABLE_API_FOOTBALL=true and football-data cannot serve the competition.
+ *   ENABLE_API_FOOTBALL=true.
+ * - The first provider that can serve a competition is its source, in the order
+ *   football-data, OpenLigaDB, API-Football. The others are backups, used when the
+ *   source fails and nothing is cached (see services/failover.ts).
  * - `zones` are position ranges for the standings markers. They follow the usual
  *   allocation for the league and may need a tweak when UEFA coefficients shift places.
  */
@@ -31,6 +37,7 @@ export interface CompetitionConfig {
   highlightBonus?: { knockout: number; other: number };
   providers: {
     footballData?: { code: string };
+    openLigaDb?: { shortcut: string };
     apiFootball?: { name: string; country: string };
   };
 }
@@ -162,7 +169,7 @@ export const COMPETITIONS: readonly CompetitionConfig[] = [
       z('relegation_playoff', 16, 16, 'Relegation play-off'),
       z('relegation', 17, 18, 'Relegation'),
     ],
-    providers: { footballData: { code: 'BL1' }, apiFootball: { name: 'Bundesliga', country: 'Germany' } },
+    providers: { footballData: { code: 'BL1' }, openLigaDb: { shortcut: 'bl1' }, apiFootball: { name: 'Bundesliga', country: 'Germany' } },
   },
   {
     id: 'FL1',
@@ -360,6 +367,42 @@ export const COMPETITIONS: readonly CompetitionConfig[] = [
     defaultEnabled: true,
     zones: [z('qualified', 1, 2, 'Qualifies')],
     providers: { apiFootball: { name: 'Euro Championship - Qualification', country: 'World' } },
+  },
+  {
+    id: 'DFB',
+    name: 'DFB-Pokal',
+    shortName: 'DFB-Pokal',
+    category: 'club',
+    format: 'cup',
+    region: 'Germany',
+    priority: 19,
+    hasStandings: false,
+    hasScorers: true,
+    hasBracket: true,
+    defaultEnabled: true,
+    zones: [],
+    highlightBonus: { knockout: 10, other: 0 },
+    providers: { openLigaDb: { shortcut: 'dfb' }, apiFootball: { name: 'DFB Pokal', country: 'Germany' } },
+  },
+  {
+    id: 'BL2',
+    name: '2. Bundesliga',
+    shortName: '2. Bundesliga',
+    category: 'club',
+    format: 'league',
+    region: 'Germany',
+    priority: 20,
+    hasStandings: true,
+    hasScorers: true,
+    hasBracket: false,
+    defaultEnabled: true,
+    zones: [
+      z('promotion', 1, 2, 'Promotion'),
+      z('promotion_playoff', 3, 3, 'Promotion play-off'),
+      z('relegation_playoff', 16, 16, 'Relegation play-off'),
+      z('relegation', 17, 18, 'Relegation'),
+    ],
+    providers: { openLigaDb: { shortcut: 'bl2' }, apiFootball: { name: '2. Bundesliga', country: 'Germany' } },
   },
   {
     id: 'FRIENDLIES',

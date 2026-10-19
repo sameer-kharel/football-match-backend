@@ -55,9 +55,10 @@ export function v1Routes(getCtx: () => AppContext) {
         redis = 'error';
       }
     }
-    const [fdBudget, afBudget] = await Promise.all([
+    const [fdBudget, afBudget, olBudget] = await Promise.all([
       ctx.budgets.fd.snapshot().catch(() => null),
       ctx.budgets.af.snapshot().catch(() => null),
+      ctx.budgets.ol.snapshot().catch(() => null),
     ]);
     const healthy = redis !== 'error' && !!ctx.fd;
     c.header('Cache-Control', 'no-store');
@@ -69,6 +70,7 @@ export function v1Routes(getCtx: () => AppContext) {
         providers: {
           footballData: { configured: !!ctx.fd, plan: ctx.env.footballDataPlan, budget: fdBudget },
           apiFootball: { enabled: ctx.env.apiFootballEnabled, configured: !!ctx.af, budget: ctx.af ? afBudget : null },
+          openLigaDb: { enabled: ctx.env.openLigaDbEnabled, configured: !!ctx.ol, budget: ctx.ol ? olBudget : null },
         },
       },
       healthy ? 200 : 503,
@@ -197,6 +199,8 @@ export function v1Routes(getCtx: () => AppContext) {
       await step(`fd:day:${today}`, () => dayMatches(ctx, 'football-data', today, meta));
       await step(`fd:day:${addDays(today, 1)}`, () => dayMatches(ctx, 'football-data', addDays(today, 1), meta));
     }
+    // Loads every OpenLigaDB season, so the backup is warm before it's needed.
+    if (ctx.ol) await step(`ol:day:${today}`, () => dayMatches(ctx, 'openligadb', today, meta));
     for (const a of active.filter((x) => x.source === 'football-data' && x.config.hasStandings).slice(0, 2)) {
       await step(`standings:${a.config.id}`, () => competitionStandings(ctx, a.config.id, meta));
     }

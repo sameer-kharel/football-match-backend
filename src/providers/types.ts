@@ -48,9 +48,12 @@ export interface FootballProvider {
   competitionTeams(competition: CompetitionConfig): Promise<TeamRef[]>;
 }
 
-/** Internal ids carry their source: "fd-86", "af-541". */
+const SOURCE_BY_PREFIX: Record<string, Source> = { fd: 'football-data', af: 'api-football', ol: 'openligadb' };
+
+/** Internal ids carry their source: "fd-86", "af-541", "ol-83201". */
 export function parseSourcedId(id: string): { source: Source; raw: string } | null {
-  const m = /^(fd|af)-(\d{1,10})$/.exec(id);
-  if (!m?.[1] || !m[2]) return null;
-  return { source: m[1] === 'fd' ? 'football-data' : 'api-football', raw: m[2] };
+  const m = /^(fd|af|ol)-(\d{1,10})$/.exec(id);
+  const source = m?.[1] ? SOURCE_BY_PREFIX[m[1]] : undefined;
+  if (!source || !m?.[2]) return null;
+  return { source, raw: m[2] };
 }

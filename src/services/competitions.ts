@@ -8,6 +8,7 @@ import { activeCompetition, activeCompetitions, cachePrefix, providerFor } from 
 import type { AppContext } from './context.js';
 import { annotateMatch, annotateTeam, featuredIndex } from './featured.js';
 import { isActive, overlayLive } from './matches.js';
+import { withFailover } from './failover.js';
 import type { MetaCollector } from './meta.js';
 
 export function toCompetition(a: ActiveCompetition): Competition {
@@ -38,10 +39,12 @@ export async function listCompetitions(ctx: AppContext, meta: MetaCollector): Pr
 
 /** The whole current season for a competition (also feeds tournament brackets). */
 export async function seasonMatches(ctx: AppContext, comp: ActiveCompetition, meta: MetaCollector): Promise<Match[]> {
-  const provider = providerFor(ctx, comp.source);
-  const ttl = comp.source === 'football-data' ? TTL.competitionMatches : AF_TTL.dayFuture;
-  const res = await ctx.cache.get(`${cachePrefix(comp.source)}:comp:${comp.config.id}:matches`, () => provider.competitionMatches(comp.config), { ttl });
-  return overlayLive(ctx, meta.add(res, comp.source), meta);
+  const matches = await withFailover(ctx, comp, meta, async (source) => {
+    const ttl = source === 'api-football' ? AF_TTL.dayFuture : TTL.competitionMatches;
+    const res = await ctx.cache.get(`${cachePrefix(source)}:comp:${comp.config.id}:matches`, () => providerFor(ctx, source).competitionMatches(comp.config), { ttl });
+    return meta.add(res, source);
+  });
+  return overlayLive(ctx, matches, meta);
 }
 
 export interface CompetitionMatchesQuery {
@@ -66,19 +69,22 @@ export async function competitionMatches(ctx: AppContext, id: string, q: Competi
 export async function competitionStandings(ctx: AppContext, id: string, meta: MetaCollector): Promise<Standings> {
   const comp = await activeCompetition(ctx, id, meta);
   if (!comp.config.hasStandings) return { competitionId: id, season: comp.season?.label ?? null, groups: [], zones: [] };
-  const provider = providerFor(ctx, comp.source);
-
-  let ttl: number = comp.source === 'football-data' ? TTL.standings : AF_TTL.standings;
-  if (comp.source === 'football-data') {
-    // Shorter while one of the competition's matches is in play.
-    const today = await ctx.cache.peek<Match[]>(`fd:day:${new Date(ctx.now()).toISOString().slice(0, 10)}`);
-    if (today?.v.some((m) => m.competitionId === id && isActive(m, ctx.now()))) ttl = TTL.standingsActive;
-  }
 
   let standings: Standings;
   try {
-    const res = await ctx.cache.get(`${cachePrefix(comp.source)}:comp:${id}:standings`, () => provider.standings(comp.config), { ttl, notFoundTtl: TTL.notFound });
-    standings = meta.add(res, comp.source);
+    standings = await withFailover(ctx, comp, meta, async (source) => {
+      let ttl: number = source === 'api-football' ? AF_TTL.standings : TTL.standings;
+      if (source !== 'api-football') {
+        // Shorter while one of the competition's matches is in play.
+        const today = await ctx.cache.peek<Match[]>(`${cachePrefix(source)}:day:${new Date(ctx.now()).toISOString().slice(0, 10)}`);
+        if (today?.v.some((m) => m.competitionId === id && isActive(m, ctx.now()))) ttl = TTL.standingsActive;
+      }
+      const res = await ctx.cache.get(`${cachePrefix(source)}:comp:${id}:standings`, () => providerFor(ctx, source).standings(comp.config), {
+        ttl,
+        notFoundTtl: TTL.notFound,
+      });
+      return meta.add(res, source);
+    });
   } catch (e) {
     // The provider has no table for this competition (football-data answers 404
     // for tournaments like the World Cup): build group tables from the results.
@@ -97,12 +103,17 @@ export async function competitionStandings(ctx: AppContext, id: string, meta: Me
 export async function competitionScorers(ctx: AppContext, id: string, limit: number, meta: MetaCollector): Promise<Scorer[]> {
   const comp = await activeCompetition(ctx, id, meta);
   if (!comp.config.hasScorers) return [];
-  const provider = providerFor(ctx, comp.source);
-  const ttl = comp.source === 'football-data' ? TTL.scorers : AF_TTL.scorers;
   // Always cache the provider maximum we use (30) and slice, so every `limit` shares one entry.
   try {
-    const res = await ctx.cache.get(`${cachePrefix(comp.source)}:comp:${id}:scorers`, () => provider.scorers(comp.config, 30), { ttl, notFoundTtl: TTL.notFound });
-    return meta.add(res, comp.source).slice(0, limit);
+    const scorers = await withFailover(ctx, comp, meta, async (source) => {
+      const ttl = source === 'api-football' ? AF_TTL.scorers : TTL.scorers;
+      const res = await ctx.cache.get(`${cachePrefix(source)}:comp:${id}:scorers`, () => providerFor(ctx, source).scorers(comp.config, 30), {
+        ttl,
+        notFoundTtl: TTL.notFound,
+      });
+      return meta.add(res, source);
+    });
+    return scorers.slice(0, limit);
   } catch (e) {
     // No scorers list for this competition: an empty list, not an error.
     if (e instanceof NotFoundError || e instanceof PlanRestrictedError) return [];

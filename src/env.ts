@@ -5,6 +5,12 @@ const bool = z
   .optional()
   .transform((v) => v === 'true' || v === '1');
 
+/** Like `bool`, but on unless set to "false" or "0". */
+const boolDefaultOn = z
+  .string()
+  .optional()
+  .transform((v) => !(v === 'false' || v === '0'));
+
 const positiveInt = (fallback: number) =>
   z
     .string()
@@ -22,6 +28,8 @@ const EnvSchema = z.object({
   API_FOOTBALL_KEY: z.string().optional().default(''),
   API_FOOTBALL_DAILY_BUDGET: positiveInt(90),
   API_FOOTBALL_RPM: positiveInt(8),
+  ENABLE_OPENLIGADB: boolDefaultOn,
+  OPENLIGADB_RPM: positiveInt(30),
   IP_RATE_LIMIT_PER_MINUTE: positiveInt(120),
   CRON_SECRET: z.string().optional().default(''),
   VERCEL_ENV: z.string().optional(),
@@ -35,6 +43,9 @@ export interface Env {
   apiFootballKey: string;
   apiFootballDailyBudget: number;
   apiFootballRpm: number;
+  /** OpenLigaDB: keyless German league data, on unless ENABLE_OPENLIGADB=false. */
+  openLigaDbEnabled: boolean;
+  openLigaDbRpm: number;
   ipLimitPerMinute: number;
   cronSecret: string;
   isProduction: boolean;
@@ -54,6 +65,8 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
     apiFootballKey: e.API_FOOTBALL_KEY.trim(),
     apiFootballDailyBudget: e.API_FOOTBALL_DAILY_BUDGET,
     apiFootballRpm: e.API_FOOTBALL_RPM,
+    openLigaDbEnabled: e.ENABLE_OPENLIGADB,
+    openLigaDbRpm: e.OPENLIGADB_RPM,
     ipLimitPerMinute: e.IP_RATE_LIMIT_PER_MINUTE,
     cronSecret: e.CRON_SECRET,
     isProduction: e.VERCEL_ENV === 'production',

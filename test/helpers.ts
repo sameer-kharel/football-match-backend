@@ -23,6 +23,9 @@ export function testEnv(overrides: Partial<Env> = {}): Env {
     apiFootballKey: '',
     apiFootballDailyBudget: 90,
     apiFootballRpm: 8,
+    // Off by default so football-data tests don't reach for it; the failover tests turn it on.
+    openLigaDbEnabled: false,
+    openLigaDbRpm: 30,
     ipLimitPerMinute: 120,
     cronSecret: 'cron-secret',
     isProduction: false,

@@ -3,8 +3,8 @@ import { diffDays, isValidTimeZone } from '../domain/time.js';
 import { ValidationError } from './errors.js';
 
 export const competitionId = z.string().regex(/^[A-Z0-9_]{2,24}$/, 'Expected a competition id like PL or UCL');
-export const teamId = z.string().regex(/^(fd|af)-\d{1,10}$/, 'Expected a team id like fd-57');
-export const matchId = z.string().regex(/^(fd|af)-\d{1,10}$/, 'Expected a match id like fd-497411');
+export const teamId = z.string().regex(/^(fd|af|ol)-\d{1,10}$/, 'Expected a team id like fd-57');
+export const matchId = z.string().regex(/^(fd|af|ol)-\d{1,10}$/, 'Expected a match id like fd-497411');
 export const isoDate = z.iso.date('Expected a date as YYYY-MM-DD');
 export const timeZone = z
   .string()

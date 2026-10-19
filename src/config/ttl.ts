@@ -47,6 +47,18 @@ export const AF_TTL = {
   league: 7 * 86_400,
 } as const;
 
+/**
+ * OpenLigaDB publishes no rate limit and has no per-date endpoint. Each league's
+ * season file (~300 KB) is cached for hours; the matchdays being played are
+ * refetched on their own (~16 KB) and laid over it.
+ */
+export const OL_TTL = {
+  season: 21_600,
+  /** A matchday with a match in play or about to start. */
+  matchdayActive: 60,
+  matchday: 900,
+} as const;
+
 export const HARD_TTL = 7 * 86_400;
 
 /** CDN cache policy per endpoint: s-maxage and stale-while-revalidate, seconds. */

@@ -1,6 +1,7 @@
 import { AF_TTL, TTL } from '../config/ttl.js';
 import { addDays, toUtcDate } from '../domain/time.js';
 import type { Match, TeamIndexEntry, TeamProfile } from '../domain/types.js';
+import { normalizeTeamName } from '../domain/names.js';
 import { NotFoundError } from '../lib/errors.js';
 import { errorMessage } from '../lib/logger.js';
 import { parseSourcedId } from '../providers/types.js';
@@ -18,7 +19,7 @@ export async function teamWindowMatches(ctx: AppContext, teamId: string, meta: M
   const today = toUtcDate(ctx.now());
   const range = { from: addDays(today, -60), to: addDays(today, 60) };
   const res = await ctx.cache.get(`${cachePrefix(parsed.source)}:team:${teamId}:matches`, () => provider.teamMatches(teamId, range), {
-    ttl: parsed.source === 'football-data' ? TTL.teamMatches : AF_TTL.teamMatches,
+    ttl: parsed.source === 'api-football' ? AF_TTL.teamMatches : TTL.teamMatches,
     notFoundTtl: TTL.notFound,
   });
   return overlayLive(ctx, meta.add(res, parsed.source), meta);
@@ -30,7 +31,7 @@ export async function teamProfile(ctx: AppContext, teamId: string, meta: MetaCol
   const provider = providerFor(ctx, parsed.source);
 
   const baseRes = await ctx.cache.get(`${cachePrefix(parsed.source)}:team:${teamId}`, () => provider.team(teamId), {
-    ttl: parsed.source === 'football-data' ? TTL.team : AF_TTL.team,
+    ttl: parsed.source === 'api-football' ? AF_TTL.team : TTL.team,
     notFoundTtl: TTL.notFound,
   });
   const base = meta.add(baseRes, parsed.source);
@@ -65,12 +66,19 @@ export async function teamsIndex(ctx: AppContext, meta: MetaCollector): Promise<
   const active = await activeCompetitions(ctx, meta);
   const index = await featuredIndex(ctx, active);
   const byId = new Map<string, TeamIndexEntry>();
+  // One club from two providers (Bayern in football-data's Bundesliga and OpenLigaDB's
+  // DFB-Pokal) is listed once, under the first one. Within one provider, ids decide.
+  const byName = new Map<string, TeamIndexEntry>();
   for (const comp of active) {
     try {
       for (const team of await competitionTeams(ctx, comp)) {
-        const entry = byId.get(team.id) ?? { team: annotateTeam(team, index), competitionIds: [] };
-        entry.competitionIds.push(comp.config.id);
-        byId.set(team.id, entry);
+        const nameKey = `${team.national ? 'n' : 'c'}|${normalizeTeamName(team.name)}`;
+        const twin = byName.get(nameKey);
+        const crossSource = twin && parseSourcedId(twin.team.id)?.source !== parseSourcedId(team.id)?.source ? twin : undefined;
+        const entry = byId.get(team.id) ?? crossSource ?? { team: annotateTeam(team, index), competitionIds: [] };
+        if (!entry.competitionIds.includes(comp.config.id)) entry.competitionIds.push(comp.config.id);
+        byId.set(entry.team.id, entry);
+        if (!twin) byName.set(nameKey, entry);
       }
       meta.add({ data: null, stale: false, fetchedAt: ctx.now() }, comp.source);
     } catch (e) {

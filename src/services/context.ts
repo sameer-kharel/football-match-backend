@@ -10,6 +10,8 @@ import { createStore } from '../lib/store.js';
 import type { AfLeagueInfo } from '../providers/api-football/provider.js';
 import { ApiFootballProvider } from '../providers/api-football/provider.js';
 import { FootballDataProvider } from '../providers/football-data/provider.js';
+import { OpenLigaDbProvider } from '../providers/openligadb/provider.js';
+import type { OlSeason } from '../providers/openligadb/raw.js';
 import type { FetchLike } from '../providers/upstream.js';
 
 export interface AppContext {
@@ -20,7 +22,8 @@ export interface AppContext {
   now: () => number;
   fd: FootballDataProvider | null;
   af: ApiFootballProvider | null;
-  budgets: { fd: UpstreamBudget; af: UpstreamBudget };
+  ol: OpenLigaDbProvider | null;
+  budgets: { fd: UpstreamBudget; af: UpstreamBudget; ol: UpstreamBudget };
 }
 
 export interface ContextOverrides {
@@ -31,6 +34,8 @@ export interface ContextOverrides {
   fetch?: FetchLike;
   /** Lets tests skip the league lookups. */
   afLeagues?: () => Promise<Map<string, AfLeagueInfo>>;
+  /** Lets tests hand OpenLigaDB seasons over directly. */
+  olSeasons?: (shortcut: string) => Promise<OlSeason>;
   cacheWait?: { attempts: number; delayMs: number };
 }
 
@@ -56,6 +61,7 @@ export function createContext(overrides: ContextOverrides = {}): AppContext {
   const budgets = {
     fd: new UpstreamBudget(store, { name: 'fd', perMinute: env.footballDataRpm }, now, logger),
     af: new UpstreamBudget(store, { name: 'af', perMinute: env.apiFootballRpm, perDay: env.apiFootballDailyBudget }, now, logger),
+    ol: new UpstreamBudget(store, { name: 'ol', perMinute: env.openLigaDbRpm }, now, logger),
   };
 
   const fd = env.footballDataKey
@@ -68,7 +74,7 @@ export function createContext(overrides: ContextOverrides = {}): AppContext {
       })
     : null;
 
-  const ctx: AppContext = { env, store, cache, logger, now, fd, af: null, budgets };
+  const ctx: AppContext = { env, store, cache, logger, now, fd, af: null, ol: null, budgets };
 
   if (env.apiFootballEnabled && env.apiFootballKey) {
     ctx.af = new ApiFootballProvider({
@@ -77,6 +83,17 @@ export function createContext(overrides: ContextOverrides = {}): AppContext {
       logger,
       // Imported lazily to avoid a cycle: the directory needs ctx.af to look leagues up.
       leagues: overrides.afLeagues ?? (async () => (await import('./availability.js')).apiFootballLeagues(ctx)),
+      ...(overrides.fetch ? { fetch: overrides.fetch } : {}),
+    });
+  }
+
+  if (env.openLigaDbEnabled) {
+    ctx.ol = new OpenLigaDbProvider({
+      budget: budgets.ol,
+      logger,
+      now,
+      // Lazy for the same reason: the season loader caches through ctx and calls ctx.ol.
+      seasons: overrides.olSeasons ?? (async (shortcut) => (await import('./openligadb.js')).olSeason(ctx, shortcut)),
       ...(overrides.fetch ? { fetch: overrides.fetch } : {}),
     });
   }

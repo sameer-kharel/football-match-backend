@@ -6,7 +6,7 @@ import { normalizeTeamName } from '../domain/names.js';
 import type { Match, TeamRef } from '../domain/types.js';
 import { errorMessage } from '../lib/logger.js';
 import type { ActiveCompetition } from './availability.js';
-import { cachePrefix, providerFor } from './availability.js';
+import { budgetFor, cachePrefix, providerFor } from './availability.js';
 import type { AppContext } from './context.js';
 
 export interface FeaturedIndex {
@@ -51,7 +51,7 @@ const RESOLVE_PER_REQUEST = 1;
  */
 async function hasSpareBudget(ctx: AppContext, comp: ActiveCompetition): Promise<boolean> {
   try {
-    const budget = comp.source === 'football-data' ? ctx.budgets.fd : ctx.budgets.af;
+    const budget = budgetFor(ctx, comp.source);
     const snap = await budget.snapshot();
     if (snap.blockedUntil) return false;
     if (snap.minuteUsed * 2 >= snap.perMinute) return false;

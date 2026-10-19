@@ -3,7 +3,7 @@
  * sees a raw provider payload. Keep this file in sync with app/lib/core/models.
  */
 
-export type Source = 'football-data' | 'api-football';
+export type Source = 'football-data' | 'api-football' | 'openligadb';
 
 export type CompetitionCategory = 'club' | 'international';
 export type CompetitionFormat = 'league' | 'cup' | 'tournament';
