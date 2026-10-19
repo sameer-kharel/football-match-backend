@@ -225,3 +225,31 @@ describe('other endpoints', () => {
     expect((body as unknown as ErrorBody).error.code).toBe('UPSTREAM_RATE_LIMITED');
   });
 });
+
+describe('store listing pages', () => {
+  it('serves the privacy policy with the publisher details from the environment', async () => {
+    const { app } = setup({ publisherName: 'Sameer Kharel', contactEmail: 'support@example.com' });
+    const res = await app.request('/privacy');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('content-type')).toContain('text/html');
+    const html = await res.text();
+    expect(html).toContain('<title>Pitchside privacy policy</title>');
+    expect(html).toContain('published by Sameer Kharel');
+    expect(html).toContain('mailto:support@example.com');
+    expect(html).toContain('Google AdMob');
+    expect(html).not.toContain('API-Football');
+  });
+
+  it('escapes what comes from the environment', async () => {
+    const { app } = setup({ publisherName: '<script>x</script>' });
+    const html = await (await app.request('/privacy')).text();
+    expect(html).not.toContain('<script>');
+  });
+
+  it('serves app-ads.txt only once it is configured', async () => {
+    expect((await setup().app.request('/app-ads.txt')).status).toBe(404);
+    const res = await setup({ appAdsTxt: 'google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0' }).app.request('/app-ads.txt');
+    expect(res.status).toBe(200);
+    expect(await res.text()).toBe('google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0\n');
+  });
+});

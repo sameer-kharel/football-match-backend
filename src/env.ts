@@ -32,6 +32,10 @@ const EnvSchema = z.object({
   OPENLIGADB_RPM: positiveInt(30),
   IP_RATE_LIMIT_PER_MINUTE: positiveInt(120),
   CRON_SECRET: z.string().optional().default(''),
+  APP_NAME: z.string().optional().default('Pitchside'),
+  PUBLISHER_NAME: z.string().optional().default(''),
+  CONTACT_EMAIL: z.string().optional().default(''),
+  APP_ADS_TXT: z.string().optional().default(''),
   VERCEL_ENV: z.string().optional(),
 });
 
@@ -48,6 +52,12 @@ export interface Env {
   openLigaDbRpm: number;
   ipLimitPerMinute: number;
   cronSecret: string;
+  /** Shown in the privacy policy at /privacy. */
+  appName: string;
+  publisherName: string;
+  contactEmail: string;
+  /** Served at /app-ads.txt for AdMob; "\n" separates lines. */
+  appAdsTxt: string;
   isProduction: boolean;
 }
 
@@ -69,6 +79,10 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
     openLigaDbRpm: e.OPENLIGADB_RPM,
     ipLimitPerMinute: e.IP_RATE_LIMIT_PER_MINUTE,
     cronSecret: e.CRON_SECRET,
+    appName: e.APP_NAME.trim() || 'Pitchside',
+    publisherName: e.PUBLISHER_NAME.trim(),
+    contactEmail: e.CONTACT_EMAIL.trim(),
+    appAdsTxt: e.APP_ADS_TXT.trim(),
     isProduction: e.VERCEL_ENV === 'production',
   };
 }

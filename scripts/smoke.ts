@@ -58,6 +58,14 @@ async function main(): Promise<string[]> {
   if (comps.status !== 200 || !Array.isArray(list) || list.length === 0) {
     failures.push(`/api/v1/competitions answered ${comps.status} with ${Array.isArray(list) ? list.length : 'no'} competitions.`);
   }
+  // Store listing pages: a missing contact or app-ads.txt doesn't break the app, but Play and AdMob need them.
+  const policy = await fetch(`${base}/privacy`, { headers, signal: AbortSignal.timeout(20_000) });
+  const policyHtml = await policy.text();
+  if (policy.status !== 200) failures.push(`/privacy answered ${policy.status}.`);
+  else if (!policyHtml.includes('mailto:')) console.warn('::warning::Set CONTACT_EMAIL (and PUBLISHER_NAME): the privacy policy has no contact address.');
+  const adsTxt = await fetch(`${base}/app-ads.txt`, { headers, signal: AbortSignal.timeout(20_000) });
+  if (adsTxt.status !== 200) console.warn('::warning::/app-ads.txt is not set up (APP_ADS_TXT). AdMob needs it before serving real ads.');
+
   if (failures.length === 0) console.info(`Smoke test passed: ${base} (redis ${h.redis}, ${list?.length} competitions).`);
   return failures;
 }

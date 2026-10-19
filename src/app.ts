@@ -5,6 +5,7 @@ import { AppError, isAppError } from './lib/errors.js';
 import { sendError } from './lib/http.js';
 import { checkIpLimit, clientIp } from './lib/ip-limit.js';
 import { errorMessage } from './lib/logger.js';
+import { privacyPolicyHtml } from './pages/privacy.js';
 import { v1Routes } from './routes/v1.js';
 import type { AppContext } from './services/context.js';
 import { createContext } from './services/context.js';
@@ -42,6 +43,25 @@ export function createApp(contextFactory: () => AppContext = createContext) {
   });
 
   app.route('/api/v1', v1Routes(getCtx));
+
+  // Public pages for the store listing: the privacy policy and AdMob's app-ads.txt.
+  app.get('/privacy', (c) => {
+    const { env } = getCtx();
+    c.header('Cache-Control', 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800');
+    return c.html(
+      privacyPolicyHtml(
+        { appName: env.appName, publisher: env.publisherName || `the ${env.appName} developer`, contactEmail: env.contactEmail, apiFootball: env.apiFootballEnabled },
+        new URL(c.req.url).host,
+      ),
+    );
+  });
+
+  app.get('/app-ads.txt', (c) => {
+    const { env } = getCtx();
+    if (!env.appAdsTxt) throw new AppError('NOT_FOUND', 404, 'APP_ADS_TXT is not set.');
+    c.header('Cache-Control', 'public, max-age=3600, s-maxage=86400');
+    return c.text(`${env.appAdsTxt.replaceAll('\\n', '\n').trim()}\n`);
+  });
 
   app.get('/', (c) =>
     c.json({ name: 'Pitchside API', version: 'v1', health: '/api/v1/health', attribution: 'Football data provided by football-data.org. German league data from OpenLigaDB (openligadb.de), ODbL 1.0.' }),
