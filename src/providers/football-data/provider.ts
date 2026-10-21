@@ -122,7 +122,7 @@ export class FootballDataProvider implements FootballProvider {
   async matchDetail(matchId: string): Promise<MatchDetail> {
     const raw = await this.client.getJson<FdMatch>(`matches/${rawId(matchId)}`, {}, UNFOLD_ALL);
     const detail = normalizeMatchDetail(raw, this.ctx);
-    if (!detail) throw new NotFoundError('This match belongs to a competition Pitchside does not cover.');
+    if (!detail) throw new NotFoundError('This match belongs to a competition MatchBell does not cover.');
     return detail;
   }
 

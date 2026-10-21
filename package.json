@@ -2,7 +2,7 @@
   "name": "pitchside-backend",
   "version": "1.0.0",
   "private": true,
-  "description": "Pitchside API: normalized football fixtures, results and tables for the Pitchside app",
+  "description": "MatchBell API: normalized football fixtures, results and tables for the MatchBell app",
   "type": "module",
   "engines": {
     "node": "22.x"

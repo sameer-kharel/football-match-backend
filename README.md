@@ -1,6 +1,6 @@
-# Pitchside API
+# MatchBell API
 
-A Hono app for Vercel Functions. It normalizes football-data.org, OpenLigaDB and (optionally) API-Football into one schema. Upstash Redis caching, shared rate budgets and CDN cache headers sit in front. The Pitchside Flutter app is its only client.
+A Hono app for Vercel Functions. It normalizes football-data.org, OpenLigaDB and (optionally) API-Football into one schema. Upstash Redis caching, shared rate budgets and CDN cache headers sit in front. The MatchBell Flutter app is its only client.
 
 ## Data sources
 
@@ -45,7 +45,7 @@ A Hono app for Vercel Functions. It normalizes football-data.org, OpenLigaDB and
    | `API_FOOTBALL_DAILY_BUDGET` | `90` (default; the free plan allows 100/day) |
    | `IP_RATE_LIMIT_PER_MINUTE` | `120` (default) |
    | `PUBLISHER_NAME` / `CONTACT_EMAIL` | your name (or company) and a support address, shown in the privacy policy (**needed for the Play Store**) |
-   | `APP_NAME` | `Pitchside` (default), the name used in the privacy policy |
+   | `APP_NAME` | `MatchBell` (default), the name used in the privacy policy |
    | `APP_ADS_TXT` | your AdMob line, `google.com, pub-…, DIRECT, f08c47fec0942fa0` (**needed for real ads**) |
 
 ### Play Store pages

@@ -14,5 +14,5 @@ const { createApp } = await import('../src/app.js');
 const port = Number(process.env.PORT ?? 3000);
 
 serve({ fetch: createApp().fetch, port, hostname: '0.0.0.0' }, (info) => {
-  console.info(`Pitchside API on http://localhost:${info.port}/api/v1/health (Android emulator: http://10.0.2.2:${info.port})`);
+  console.info(`MatchBell API on http://localhost:${info.port}/api/v1/health (Android emulator: http://10.0.2.2:${info.port})`);
 });

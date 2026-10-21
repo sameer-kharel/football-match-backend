@@ -28,7 +28,7 @@ export function testEnv(overrides: Partial<Env> = {}): Env {
     openLigaDbRpm: 30,
     ipLimitPerMinute: 120,
     cronSecret: 'cron-secret',
-    appName: 'Pitchside',
+    appName: 'MatchBell',
     publisherName: '',
     contactEmail: '',
     appAdsTxt: '',

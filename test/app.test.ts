@@ -233,7 +233,7 @@ describe('store listing pages', () => {
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toContain('text/html');
     const html = await res.text();
-    expect(html).toContain('<title>Pitchside privacy policy</title>');
+    expect(html).toContain('<title>MatchBell privacy policy</title>');
     expect(html).toContain('published by Sameer Kharel');
     expect(html).toContain('mailto:support@example.com');
     expect(html).toContain('Google AdMob');

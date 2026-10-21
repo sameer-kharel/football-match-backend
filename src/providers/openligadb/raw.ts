@@ -1,4 +1,4 @@
-/** OpenLigaDB JSON (api.openligadb.de), only the fields Pitchside reads. */
+/** OpenLigaDB JSON (api.openligadb.de), only the fields MatchBell reads. */
 
 export interface OlTeam {
   teamId: number;

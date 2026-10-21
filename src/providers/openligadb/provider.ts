@@ -51,7 +51,7 @@ export class OpenLigaDbProvider implements FootballProvider {
     this.client = new UpstreamClient({
       providerName: 'OpenLigaDB',
       baseUrl: options.baseUrl ?? OPENLIGADB_BASE_URL,
-      headers: { 'User-Agent': 'Pitchside/1.0 (football fixtures app)' },
+      headers: { 'User-Agent': 'MatchBell/1.0 (football fixtures app)' },
       budget: options.budget,
       logger: options.logger,
       ...(options.fetch ? { fetch: options.fetch } : {}),

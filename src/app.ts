@@ -64,7 +64,7 @@ export function createApp(contextFactory: () => AppContext = createContext) {
   });
 
   app.get('/', (c) =>
-    c.json({ name: 'Pitchside API', version: 'v1', health: '/api/v1/health', attribution: 'Football data provided by football-data.org. German league data from OpenLigaDB (openligadb.de), ODbL 1.0.' }),
+    c.json({ name: 'MatchBell API', version: 'v1', health: '/api/v1/health', attribution: 'Football data provided by football-data.org. German league data from OpenLigaDB (openligadb.de), ODbL 1.0.' }),
   );
 
   app.notFound((c) => sendError(c, new AppError('NOT_FOUND', 404, `No route for ${c.req.method} ${c.req.path}.`)));
