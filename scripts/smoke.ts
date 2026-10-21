@@ -1,7 +1,7 @@
 /**
- * Post-deploy check, run by CI after every Vercel deployment:
- * `npm run smoke -- https://<deployment>`. Fails when the API doesn't answer,
- * has no football-data key, or serves no competitions.
+ * Post-deploy check: `npm run smoke -- https://<deployment>`. GitHub Actions
+ * runs it after each production deployment once PRODUCTION_URL is set. Fails
+ * when the API doesn't answer, has no football-data key, or serves no competitions.
  *
  * Preview deployments sit behind Vercel Deployment Protection: set
  * VERCEL_AUTOMATION_BYPASS_SECRET (Project → Settings → Deployment Protection →

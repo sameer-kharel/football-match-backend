@@ -1,0 +1,27 @@
+# After Vercel finishes a production deployment, checks it answers properly:
+# /health has the football-data key, competitions load, /privacy works.
+# Set the repository variable PRODUCTION_URL (e.g. https://matchbell-api.vercel.app)
+# to turn it on; without it the job skips.
+name: Smoke test
+
+on: deployment_status
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    if: github.event.deployment_status.state == 'success' && startsWith(github.event.deployment.environment, 'Production') && vars.PRODUCTION_URL != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Smoke test production
+        env:
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL }}
+        run: npm run smoke -- "$PRODUCTION_URL"

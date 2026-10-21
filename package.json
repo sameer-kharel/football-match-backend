@@ -15,6 +15,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run lint && npm run test",
+    "build": "npm run check",
     "smoke": "tsx scripts/smoke.ts"
   },
   "dependencies": {

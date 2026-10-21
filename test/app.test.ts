@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createApp } from '../src/app.js';
+import { createApp } from '../src/create-app.js';
 import type { Envelope, Match, MatchDetail, Standings } from '../src/domain/types.js';
 import { MemoryStore } from '../src/lib/store.js';
 import type { AppContext } from '../src/services/context.js';

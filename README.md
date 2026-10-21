@@ -28,7 +28,7 @@ A Hono app for Vercel Functions. It normalizes football-data.org, OpenLigaDB and
 
 1. In Vercel, choose **Add New → Project** and import this repository.
    - **Root Directory**: the repository root (in the monorepo, `backend`).
-   - The framework is detected as **Hono**, because `src/index.ts` exports the app. There's no build command to set.
+   - The framework is detected as **Hono** from `src/index.ts`. Leave the build settings at their defaults: the build runs `npm run build`, which runs the checks.
    - Node.js comes from `package.json` (`22.x`).
 2. Add Redis: **Storage → Create Database → Upstash for Redis**, then connect it to the project for every environment.
    - This adds `KV_REST_API_URL` and `KV_REST_API_TOKEN`. If you created the database on upstash.com instead, set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` by hand. Either pair works.
@@ -55,31 +55,21 @@ The API also serves the two public pages a store listing needs, so there's no se
 - `https://<project>.vercel.app/privacy`: the privacy policy (use it as the Play Console privacy policy URL; the app links to it from Settings).
 - `https://<project>.vercel.app/app-ads.txt`: AdMob's authorised-sellers file. Set the listing's website to `https://<project>.vercel.app` so AdMob finds it.
 
-### Continuous deployment (GitHub Actions)
+### Automatic deploys (Vercel ↔ GitHub)
 
-`.github/workflows/ci.yml` runs typecheck, lint and tests on every pull request and every push to `main`. When they pass, it deploys with the Vercel CLI:
+The Vercel project is connected to this GitHub repository, so Vercel deploys every push by itself:
 
-- **Pull request:** a preview deployment, linked from the PR's checks.
 - **Push to `main`:** production.
-- **After every deploy:** `npm run smoke` checks `/api/v1/health` and `/api/v1/competitions`.
+- **Any other branch or pull request:** a preview deployment, with its URL posted on the PR.
+- **The safety net:** Vercel's build runs `npm run build`, which is `npm run check` (typecheck, lint, all tests). A failing test fails the build, and production keeps the last good deployment.
+- **Undo:** Vercel → Deployments → ⋯ → **Instant Rollback** puts a previous deployment back in seconds.
 
-`vercel.json` turns off Vercel's own Git deployments (`git.deploymentEnabled: false`), so nothing deploys without passing CI and nothing deploys twice.
+GitHub Actions adds two optional workflows, neither needing any secret:
 
-Set it up once:
+- `ci.yml` shows the same checks on pull requests and pushes.
+- `smoke.yml` checks the production API after each production deploy (health, competitions, `/privacy`). It runs once you add the repository variable `PRODUCTION_URL` (e.g. `https://matchbell-api.vercel.app`) under **Settings → Secrets and variables → Actions → Variables**.
 
-1. Link the project and read its ids:
-   ```bash
-   npx vercel@62.2.0 link        # creates .vercel/project.json (git-ignored)
-   cat .vercel/project.json      # {"orgId": "...", "projectId": "..."}
-   ```
-2. Create a token at https://vercel.com/account/tokens.
-3. In GitHub, go to **Settings → Secrets and variables → Actions** and add:
-   - **Secrets:** `VERCEL_TOKEN`, `VERCEL_ORG_ID` (the `orgId` value), `VERCEL_PROJECT_ID` (the `projectId` value).
-   - **Variable:** `PRODUCTION_URL`, e.g. `https://your-project.vercel.app`. The production smoke test runs against this public domain.
-   - **Optional secret:** `VERCEL_AUTOMATION_BYPASS_SECRET` (Vercel → Project → Settings → Deployment Protection → Protection Bypass for Automation). This lets the smoke test reach protected preview URLs.
-4. Push to `main`. The **Actions** tab shows the run, and the deployment URL appears in its summary.
-
-Dependabot (`.github/dependabot.yml`) opens weekly grouped update PRs, which go through the same checks.
+Dependabot (`.github/dependabot.yml`) opens weekly grouped update PRs. Each gets a preview deployment and the checks.
 
 ### Check a deployment
 

@@ -10,7 +10,7 @@ for (const file of ['.env.local', '.env']) {
   if (existsSync(file)) process.loadEnvFile(file);
 }
 
-const { createApp } = await import('../src/app.js');
+const { createApp } = await import('../src/create-app.js');
 const port = Number(process.env.PORT ?? 3000);
 
 serve({ fetch: createApp().fetch, port, hostname: '0.0.0.0' }, (info) => {
