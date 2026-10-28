@@ -125,5 +125,3 @@ test/                   vitest: normalization fixtures, cache/stale fallback, fa
 ```
 
 To add a competition, add one entry to `src/config/competitions.ts`. Give it a football-data code, an OpenLigaDB shortcut and/or an API-Football `{ name, country }`. Availability is checked at runtime, and every extra mapping becomes a backup, so nothing else needs to change.
-
-# football-match-backend
