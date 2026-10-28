@@ -86,6 +86,21 @@ describe('OpenLigaDB as a source', () => {
     expect(body.data.some((e) => e.team.id.startsWith('ol-'))).toBe(true); // clubs only OpenLigaDB knows
   });
 
+  it("adds a pinned club's matches from the other provider, without doubling the Bundesliga", async () => {
+    const day = fixture<{ matches: Record<string, unknown>[] }>('fd/matches-2026-10-18.json');
+    const bl1 = day.matches.find((m) => (m.competition as { code: string }).code === 'BL1')!;
+    const bayernHome = { ...bl1, homeTeam: { id: 5, name: 'FC Bayern München', shortName: 'Bayern', tla: 'FCB', crest: null } };
+    const { get } = setup({ extra: [{ match: /^\/v4\/teams\/5\/matches/, body: { matches: [bayernHome] } }] });
+
+    const { body } = await get<Envelope<{ matches: Match[] }>>('/api/v1/matches/pinned?teams=fd-5&tz=UTC');
+    const byComp = (id: string) => body.data.matches.filter((m) => m.competitionId === id);
+    expect(byComp('BL1').map((m) => m.source)).toEqual(['football-data']);
+    const cup = byComp('DFB');
+    expect(cup).toHaveLength(1);
+    expect(cup[0]).toMatchObject({ source: 'openligadb', utcDate: expect.stringMatching(/^2026-10-28/) });
+    expect([cup[0]!.homeTeam.name, cup[0]!.awayTeam.name]).toContain('FC Bayern München');
+  });
+
   it('downloads each season once and cuts every list from it', async () => {
     const { get, olCalls } = setup();
     await get('/api/v1/matches?date=2026-10-18&tz=UTC');

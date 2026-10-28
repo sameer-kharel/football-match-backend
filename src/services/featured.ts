@@ -105,7 +105,7 @@ export async function featuredIndex(ctx: AppContext, active: readonly ActiveComp
   return index;
 }
 
-const teamsKey = (comp: ActiveCompetition) => `${cachePrefix(comp.source)}:teams:${comp.config.id}`;
+export const teamsKey = (comp: ActiveCompetition) => `${cachePrefix(comp.source)}:teams:${comp.config.id}`;
 
 export async function competitionTeams(ctx: AppContext, comp: ActiveCompetition): Promise<TeamRef[]> {
   const provider = providerFor(ctx, comp.source);
