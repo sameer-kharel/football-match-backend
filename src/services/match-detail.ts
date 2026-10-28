@@ -51,7 +51,7 @@ export async function matchDetail(ctx: AppContext, id: string, meta: MetaCollect
   let headToHead = detail.headToHead;
   if (!summaryOnly) {
     try {
-      const h2h = await ctx.cache.get(`${prefix}:h2h:${id}`, () => provider.headToHead(id, detail), {
+      const h2h = await ctx.cache.get(`${prefix}:h2h:v2:${id}`, () => provider.headToHead(id, detail), {
         ttl: parsed.source === 'api-football' ? AF_TTL.headToHead : TTL.headToHead,
         notFoundTtl: 86_400,
       });
