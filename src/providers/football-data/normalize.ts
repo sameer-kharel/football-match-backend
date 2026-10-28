@@ -352,7 +352,8 @@ export function normalizeStandings(raw: FdStandingsResponse, comp: CompetitionCo
   const groups: StandingGroup[] = (raw.standings ?? [])
     .filter((s) => !s.type || s.type === 'TOTAL')
     .map((s) => ({
-      name: groupLabel(s.group),
+      // football-data now labels a plain league table's group "Matchday"; only real groups get a heading.
+      name: s.group && /^GROUP_/.test(s.group) ? groupLabel(s.group) : null,
       stage: s.stage ?? null,
       rows: (s.table ?? []).map((r, i) => {
         const position = r.position ?? i + 1;

@@ -138,6 +138,12 @@ describe('football-data standings, scorers and head-to-head', () => {
     expect(s.season).toBe('2021/22');
   });
 
+  it('gives a league table no group heading, even when football-data calls its group "Matchday"', () => {
+    const raw = fixture<FdStandingsResponse>('fd/standings-PD.json');
+    const relabelled = { ...raw, standings: (raw.standings ?? []).map((t) => ({ ...t, group: 'Matchday' })) };
+    expect(normalizeStandings(relabelled, competitionById('PD')!).groups.map((g) => g.name)).toEqual([null]);
+  });
+
   it('labels tournament groups and applies per-group zones', () => {
     const s = normalizeStandings(fixture<FdStandingsResponse>('fd/standings-WC.json'), competitionById('WC')!);
     expect(s.groups.map((g) => g.name)).toEqual(['Group A', 'Group B']);
