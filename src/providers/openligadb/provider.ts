@@ -94,18 +94,17 @@ export class OpenLigaDbProvider implements FootballProvider {
 
   /** Every mapped competition's matches. One season that can't load fails the call, so callers fall back to their cache. */
   private async allMatches(): Promise<Match[]> {
-    const out: Match[] = [];
-    for (const comp of this.comps) out.push(...(await this.seasonMatches(comp)));
-    return out;
+    return (await Promise.all(this.comps.map((comp) => this.seasonMatches(comp)))).flat();
   }
 
   /** The raw match and its competition, searched through the cached seasons. */
   private async findRaw(matchId: string): Promise<{ raw: OlMatch; comp: CompetitionConfig; season: OlSeason } | null> {
     const id = Number(rawId(matchId));
-    for (const comp of this.comps) {
-      const season = await this.season(comp);
+    const seasons = await Promise.all(this.comps.map((comp) => this.season(comp)));
+    for (const [i, season] of seasons.entries()) {
       const raw = season.matches.find((m) => m.matchID === id);
-      if (raw) return { raw, comp, season };
+      const comp = this.comps[i];
+      if (raw && comp) return { raw, comp, season };
     }
     return null;
   }

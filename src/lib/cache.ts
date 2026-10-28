@@ -69,8 +69,14 @@ export class CacheMissError extends Error {
  *                     value with `stale: true`
  * miss              → fetch; concurrent misses wait briefly for the first fetch
  * Redis unavailable → behave as a miss and keep serving from the provider
+ *
+ * Within one instance, concurrent refreshes of the same key share a single
+ * fetch (Fluid compute serves many requests per instance, and parallel loads
+ * often want the same season or day), so no upstream call is made twice.
  */
 export class SwrCache {
+  private readonly inflight = new Map<string, Promise<CacheResult<unknown>>>();
+
   constructor(
     private readonly store: KeyValueStore,
     private readonly config: SwrCacheConfig,
@@ -112,6 +118,14 @@ export class SwrCache {
       throw new CacheMissError(key);
     }
 
+    const pending = this.inflight.get(key) as Promise<CacheResult<T>> | undefined;
+    if (pending) return pending;
+    const refresh = this.refresh(key, entry, fetcher, options).finally(() => this.inflight.delete(key));
+    this.inflight.set(key, refresh);
+    return refresh;
+  }
+
+  private async refresh<T>(key: string, entry: CacheEntry<T> | null, fetcher: () => Promise<T>, options: CacheOptions<T>): Promise<CacheResult<T>> {
     const lockKey = `lock:${key}`;
     const locked = await this.tryLock(lockKey);
 

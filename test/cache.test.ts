@@ -107,6 +107,28 @@ describe('SwrCache', () => {
     expect(r).toMatchObject({ data: 'v1', stale: true });
   });
 
+  it('shares one fetch between concurrent misses on the same key', async () => {
+    const { cache } = setup();
+    let release!: (v: string) => void;
+    const fetcher = vi.fn(() => new Promise<string>((r) => (release = r)));
+    const both = Promise.all([cache.get('k', fetcher, { ttl: 60 }), cache.get('k', fetcher, { ttl: 60 })]);
+    await new Promise((r) => setTimeout(r, 0));
+    release('v');
+    const [a, b] = await both;
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(a.data).toBe('v');
+    expect(b.data).toBe('v');
+  });
+
+  it('a shared fetch that fails fails every waiter, then the next call retries', async () => {
+    const { cache } = setup();
+    const fetcher = vi.fn().mockRejectedValueOnce(new Error('down')).mockResolvedValue('up');
+    const results = await Promise.allSettled([cache.get('k', fetcher, { ttl: 60 }), cache.get('k', fetcher, { ttl: 60 })]);
+    expect(results.map((r) => r.status)).toEqual(['rejected', 'rejected']);
+    expect((await cache.get('k', fetcher, { ttl: 60 })).data).toBe('up');
+    expect(fetcher).toHaveBeenCalledTimes(2);
+  });
+
   it('cacheOnly returns stale data without refreshing', async () => {
     const { cache, clock } = setup();
     await cache.get('k', () => Promise.resolve('v1'), { ttl: 60 });

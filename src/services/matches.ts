@@ -86,11 +86,13 @@ export async function coveredDays(ctx: AppContext, comps: readonly ActiveCompeti
     }
   };
 
+  // Independent lists load in parallel: a cold Kathmandu day is two football-data
+  // days plus three OpenLigaDB seasons, and in sequence that took over five seconds.
   const sources = [...new Set(comps.map((c) => c.source))].filter((s) => s !== options.preloaded?.source);
-  for (const source of sources) for (const d of dates) await load(source, d);
+  await Promise.all(sources.flatMap((source) => dates.map((d) => load(source, d))));
   for (const d of dates) {
     for (let backups = coverage.backupsNeeded(comps, d); backups.length > 0; backups = coverage.backupsNeeded(comps, d)) {
-      for (const b of backups) await load(b, d);
+      await Promise.all(backups.map((b) => load(b, d)));
     }
   }
 
@@ -157,8 +159,8 @@ export async function matchesForLocalDate(ctx: AppContext, q: LocalDayQuery, met
   const { startMs, endMs } = localDayWindow(q.date, q.tz);
   const dates = utcDatesCovering(startMs, endMs);
 
-  const index = await featuredIndex(ctx, active);
-  const matches = (await coveredDays(ctx, wanted, dates, meta))
+  const [index, days] = await Promise.all([featuredIndex(ctx, active), coveredDays(ctx, wanted, dates, meta)]);
+  const matches = days
     .filter((m) => {
       const k = Date.parse(m.utcDate);
       return k >= startMs && k < endMs;
