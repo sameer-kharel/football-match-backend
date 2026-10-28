@@ -165,4 +165,12 @@ describe('football-data standings, scorers and head-to-head', () => {
     expect(h.recent.map((m) => m.id)).toEqual(['fd-500001', 'fd-500002', 'fd-500003']);
     expect(h.recent[2]).toMatchObject({ competitionId: 'FAC', competitionName: 'FA Cup' });
   });
+
+  it("counts head-to-head itself rather than trusting football-data's aggregates", () => {
+    const current = normalizeMatchList(fixture('fd/matches-2026-10-18.json'), ctx).find((m) => m.id === 'fd-540003')!;
+    const raw = fixture<FdHead2HeadResponse>('fd/h2h-540003.json');
+    // What football-data sent for Bayern–Dortmund: no wins for either side, whatever the results.
+    const broken = { ...raw, aggregates: { numberOfMatches: 10, totalGoals: 37, homeTeam: { id: 57, wins: 0, draws: 3, losses: 0 }, awayTeam: { id: 65, wins: 0, draws: 3, losses: 0 } } };
+    expect(normalizeHeadToHead(broken as FdHead2HeadResponse, ctx, current)).toMatchObject({ numberOfMatches: 3, totalGoals: 7, homeWins: 1, awayWins: 1, draws: 1 });
+  });
 });

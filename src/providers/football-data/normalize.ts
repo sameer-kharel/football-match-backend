@@ -321,22 +321,28 @@ export function normalizeMatchDetail(raw: FdMatch, ctx: FdNormalizeContext): Mat
   };
 }
 
+/**
+ * Head-to-head counted from the meetings themselves. football-data's own
+ * aggregates are unreliable (for Bayern–Dortmund they gave both sides 0 wins
+ * and 3 draws across meetings with 3 wins each), so they are not used.
+ */
 export function normalizeHeadToHead(raw: FdHead2HeadResponse, ctx: FdNormalizeContext, current: Match): HeadToHead | null {
-  const agg = raw.aggregates;
-  const recent = normalizeMatchList(raw, ctx, { allowUnknown: true, fallbackComp: competitionById(current.competitionId) })
-    .filter((m) => m.id !== current.id && m.status === 'finished')
-    .sort((a, b) => b.utcDate.localeCompare(a.utcDate))
-    .slice(0, 5);
-  const total = agg?.numberOfMatches ?? recent.length;
-  if (!total) return null;
-  return {
-    numberOfMatches: total,
-    totalGoals: agg?.totalGoals ?? null,
-    homeWins: agg?.homeTeam?.wins ?? 0,
-    awayWins: agg?.awayTeam?.wins ?? 0,
-    draws: agg?.homeTeam?.draws ?? 0,
-    recent,
-  };
+  const meetings = normalizeMatchList(raw, ctx, { allowUnknown: true, fallbackComp: competitionById(current.competitionId) })
+    .filter((m) => m.id !== current.id && m.status === 'finished' && m.score.home !== null && m.score.away !== null)
+    .sort((a, b) => b.utcDate.localeCompare(a.utcDate));
+  if (meetings.length === 0) return null;
+  let homeWins = 0;
+  let awayWins = 0;
+  let draws = 0;
+  let totalGoals = 0;
+  for (const m of meetings) {
+    totalGoals += (m.score.home ?? 0) + (m.score.away ?? 0);
+    const winnerId = m.score.winner === 'home' ? m.homeTeam.id : m.score.winner === 'away' ? m.awayTeam.id : null;
+    if (m.score.winner === 'draw') draws++;
+    else if (winnerId === current.homeTeam.id) homeWins++;
+    else if (winnerId === current.awayTeam.id) awayWins++;
+  }
+  return { numberOfMatches: meetings.length, totalGoals, homeWins, awayWins, draws, recent: meetings.slice(0, 5) };
 }
 
 export function parseForm(form: string | null | undefined): FormResult[] {
